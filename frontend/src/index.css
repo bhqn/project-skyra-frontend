@@ -5,8 +5,10 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Inter, Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-body {
+html, body {
   background-color: #f5f7fb;
+  height: 100%;
 }

@@ -1,12 +1,12 @@
 import "./Header.css";
-import userimage from "../../assets/usericon.svg";
+import userImage from "../../assets/usericon.svg";
 import SearchIcon from "../../assets/Search.svg";
 
 
 function Header({ userData }) {
   return (
     <header className="header">
-      <img className="logo" src={userimage} alt="logo around" />
+      <img className="logo" src={userImage} alt="logo around" />
       <div className="header__container">
         <div className="header__container_text">
           {" "}
