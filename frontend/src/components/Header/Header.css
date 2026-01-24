@@ -52,15 +52,3 @@
   padding-left: 0; /* já tem padding no container */
 }
 
-.search-icon {
-  position: absolute;
-  left: 16px;
-  width: 20px;  /* tamanho do ícone */
-  height: 20px;
-}
-.header__search input:focus {
-  outline: none;        
-  box-shadow: none;    
-  border: 0;            
-}
-
