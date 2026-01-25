@@ -1,51 +1,35 @@
-import "./Forecast.css"
-import ForecastImage from "../../../../assets/sunny.svg?react"
-function Forecast (){
-    return(
-        <section className="forecast">
-            <p className="forecast__title">Previsão da semana</p>
-            <div className="forecast__card">
-                <div className="forecast__card-iten">
-                    <p className="forecast__card-title">Segunda</p>
-                    <ForecastImage className="forecast__card-image"></ForecastImage>
-                    <p className="forecast__card-temp">32C°</p>
-                </div>
-                <div className="forecast__card-iten">
-                    <p className="forecast__card-title">Terça</p>
-                    <ForecastImage className="forecast__card-image"></ForecastImage>
-                    <p className="forecast__card-temp">32C°</p>
-                </div>
-                <div className="forecast__card-iten">
-                    <p className="forecast__card-title">Quarta</p>
-                    <ForecastImage className="forecast__card-image"></ForecastImage>
-                    <p className="forecast__card-temp">32C°</p>
-                </div>
-                <div className="forecast__card-iten">
-                    <p className="forecast__card-title">Quinta</p>
-                    <ForecastImage className="forecast__card-image"></ForecastImage>
-                    <p className="forecast__card-temp">32C°</p>
-                </div>
-                <div className="forecast__card-iten">
-                    <p className="forecast__card-title">Sexta</p>
-                    <ForecastImage className="forecast__card-image"></ForecastImage>
-                    <p className="forecast__card-temp">32C°</p>
-                </div>
-                   <div className="forecast__card-iten">
-                    <p className="forecast__card-title">Sabado</p>
-                    <ForecastImage className="forecast__card-image"></ForecastImage>
-                    <p className="forecast__card-temp">32C°</p>
-                </div>
-                <div className="forecast__card-iten">
-                    <p className="forecast__card-title">Domingo</p>
-                    <ForecastImage className="forecast__card-image"></ForecastImage>
-                    <p className="forecast__card-temp">32C°</p>
-                </div>
-                
-                
+import "./Forecast.css";
+import ForecastImage from "../../../../assets/sunny.svg"; // use import normal para SVG
 
-            </div>
-        </section>
-    )
+const days = [
+  { name: "Segunda", image: ForecastImage, temp: "26°C" },
+  { name: "Terça", image: ForecastImage, temp: "29°C" },
+  { name: "Quarta", image: ForecastImage, temp: "24°C" },
+  { name: "Quinta", image: ForecastImage, temp: "18°C" },
+  { name: "Sexta", image: ForecastImage, temp: "18°C" },
+  { name: "Sábado", image: ForecastImage, temp: "18°C" },
+  { name: "Domingo", image: ForecastImage, temp: "18°C" },
+];
+
+function Forecast() {
+  return (
+    <section className="forecast">
+      <p className="forecast__title">Previsão da semana</p>
+      <div className="forecast__card">
+        {days.map((day, index) => (
+          <div className="forecast__card-iten" key={index}>
+            <p className="forecast__card-title">{day.name}</p>
+            <img
+              src={day.image}
+              alt={day.name}
+              className="forecast__card-image"
+            />
+            <p className="forecast__card-temp">{day.temp}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 }
 
 export default Forecast;

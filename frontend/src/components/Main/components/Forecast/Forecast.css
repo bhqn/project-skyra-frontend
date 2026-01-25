@@ -1,11 +1,11 @@
 .forecast{
 margin-left: 30px;
-  width: 100%;
+  width: 99%;
 }
 
 .forecast__card {
   display: flex;
-  flex-direction: row;        /* 🔑 horizontal */
+  flex-direction: row;        
   gap: 16px;
 
   margin-top: 30px;
@@ -17,10 +17,10 @@ margin-left: 30px;
   background: linear-gradient(to top, #ffffff 9%, #f4f4f4 100%);
   border-radius: 18px;
 
-  overflow-x: auto;           /* 🔑 scroll horizontal */
+  overflow-x: auto;           
   overflow-y: hidden;
 
-  scroll-snap-type: x mandatory; /* 🧲 snap suave */
+  scroll-snap-type: x mandatory; 
   -webkit-overflow-scrolling: touch;
 }
 
