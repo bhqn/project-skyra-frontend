@@ -31,7 +31,8 @@
 
 
 .header__search {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   height: 60px;
   margin-left: auto;
   border-radius: 40px;
