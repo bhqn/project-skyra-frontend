@@ -1,33 +1,30 @@
-import "./WeatherChart.css"
+import "./WeatherChart.css";
+import mapHourlyForecast from "../../../../../utils/mapForecast";
 import {
   LineChart,
   Line,
   XAxis,
+  YAxis,
   ResponsiveContainer,
   LabelList,
 } from "recharts";
 
-const data = [
-    { time: "0 AM", temp: 10 },
-  { time: "6 AM", temp: 16 },
-  { time: "9 AM", temp: 20 },
-  { time: "12 PM", temp: 28 },
-  { time: "3 PM", temp: 26 },
-  { time: "6 PM", temp: 22 },
-  { time: "9 PM", temp: 18 },
-];
-
-function WeatherChart() {
+function WeatherChart({ forecast }) {
+  const chartData = mapHourlyForecast(forecast);
   return (
     <div className="weather-chart">
       <ResponsiveContainer width="100%" height={140}>
-        <LineChart data={data}>
+        <LineChart data={chartData}>
           <XAxis
             dataKey="time"
             axisLine={false}
             tickLine={false}
+            interval={0}
+            padding={{ left: 12, right: 12 }}
             tick={{ fontSize: 12, fill: "#7a7a7a" }}
           />
+
+          <YAxis hide domain={["dataMin - 2", "dataMax + 2"]} />
 
           <Line
             type="monotone"
@@ -35,9 +32,10 @@ function WeatherChart() {
             stroke="#FF9F1C"
             strokeWidth={2}
             dot={{ r: 4, fill: "#fff", stroke: "#FF9F1C", strokeWidth: 2 }}
-            activeDot={{ r: 5 }}
+            activeDot={{ r: 6 }}
           >
             <LabelList
+              offset={8}
               dataKey="temp"
               position="top"
               formatter={(value) => `${value}°`}

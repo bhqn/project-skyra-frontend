@@ -9,15 +9,15 @@ import Cities from "./components/Cities/Cities";
 
 
 
-function Main() {
+function Main({weather, forecast}) {
   return (
     <>
     <main className="main">
-     <Sidebar></Sidebar>
-     <WeatherCurrent></WeatherCurrent>
+     <Sidebar/>
+     <WeatherCurrent weather={weather} forecast={forecast}/>
      <div className="main__wrap">
-     <Forecast></Forecast>
-     <Cities></Cities>
+     <Forecast weather={weather} forecast={forecast}/>
+     <Cities/>
      </div>
     
     </main>

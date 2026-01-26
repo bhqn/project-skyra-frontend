@@ -1,59 +1,81 @@
 import "./WeatherCurrent.css";
 import ImageLocation from "../../../../assets/sunny.svg?react";
-import WeatherChart from "../Weathercurrent/components/WeatherChart.jsx"
-function WeatherCurrent() {
+import WeatherChart from "../Weathercurrent/components/WeatherChart.jsx";
+import { formatTime, getCurrentHour, getDayAndMonth, getWeekDayLong,getWeekDayShort  } from "../../../../utils/date";
+import { mapWeather } from "../../../../utils/mapWeather";
+
+function WeatherCurrent({ weather, forecast }) {
+  if (!weather) return null;
+
+  const mapped = mapWeather(weather);
+
   return (
     <div className="weather-Current">
       <div className="weather-current__container">
         <div className="weather-current__wrap-one">
-          <ImageLocation className="weather-current__image"></ImageLocation>
+          <ImageLocation className="weather-current__image" />
           <div>
-            <p className="weather-current__date">Segunda-feira, 23/01</p>
-            <p className="weather-current__weather">Ensolarado</p>
+            <p className="weather-current__date">{getWeekDayShort()} {getDayAndMonth()}</p>
+            <p className="weather-current__weather">
+              {mapped.description}
+            </p>
           </div>
         </div>
+
         <div className="weather-current__wrap-two">
-          <p className="weather-current__time">10:20 am</p>
-          <p className="weather-current__location">Rio de Janeiro</p>
+          <p className="weather-current__time">{getCurrentHour()}</p>
+          <p className="weather-current__location">{mapped.city}</p>
         </div>
       </div>
+
       <div className="weather-current__temp">
-        <p className="weather-current__temp-nun">32</p>
-        <p className="weather-current__temp-unit">c°</p>
+        <p className="weather-current__temp-nun">{mapped.temp}</p>
+        <p className="weather-current__temp-unit">°C</p>
       </div>
 
       <div className="weather-current__meta">
         <div className="weather-current__meta-iten">
           <p className="weather-current__meta-text">Pressão</p>
-          <p className="weather-current__meta-num">200mb</p>
+          <p className="weather-current__meta-num">
+            {mapped.pressure} hPa
+          </p>
         </div>
+
         <div className="weather-current__meta-iten">
           <p className="weather-current__meta-text">Humidade</p>
-          <p className="weather-current__meta-num">70%</p>
+          <p className="weather-current__meta-num">
+            {mapped.humidity}%
+          </p>
         </div>
+
         <div className="weather-current__meta-iten">
           <p className="weather-current__meta-text">Visibilidade</p>
-          <p className="weather-current__meta-num">5km</p>
+          <p className="weather-current__meta-num">
+            {mapped.visibility / 1000} km
+          </p>
         </div>
       </div>
 
       <div className="weather-current__Sun">
         <div className="weather-current__Sun-card">
-            <p className="weather-current__Sun-text">Nascer do sol</p>
-            <p className="weather-current__Sun-time">5:10 am</p>
-
+          <p className="weather-current__Sun-text">Nascer do sol</p>
+          <p className="weather-current__Sun-time">
+            {formatTime(mapped.sunrise)}
+          </p>
         </div>
+
         <div className="weather-current__Sun-card">
-             <p className="weather-current__Sun-text">Por do sol</p>
-            <p className="weather-current__Sun-time">6:20 pm</p>
-
+          <p className="weather-current__Sun-text">Pôr do sol</p>
+          <p className="weather-current__Sun-time">
+            {formatTime(mapped.sunset)}
+          </p>
         </div>
-
-        
       </div>
-      <p className="weather-Current__title"> Grafico de Temperatura</p>
+
+      <p className="weather-Current__title">Gráfico de Temperatura</p>
+
       <div className="weather-Current__charts">
-        <WeatherChart></WeatherChart>
+        <WeatherChart forecast={forecast}/>
       </div>
     </div>
   );

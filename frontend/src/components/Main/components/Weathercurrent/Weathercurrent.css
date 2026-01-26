@@ -130,7 +130,9 @@
 }
 
 .weather-Current__charts{
+  
   margin-top: 30px;
   background-color: #f4f4f4;
   border-radius: 18px;
+  height: 200px;
 }
