@@ -1,24 +1,33 @@
 import "./WeatherCurrent.css";
 import ImageLocation from "../../../../assets/sunny.svg?react";
 import WeatherChart from "../Weathercurrent/components/WeatherChart.jsx";
-import { formatTime, getCurrentHour, getDayAndMonth, getWeekDayLong,getWeekDayShort  } from "../../../../utils/date";
+import {
+  formatTime,
+  getCurrentHour,
+  getDayAndMonth,
+  getWeekDayLong,
+  getWeekDayShort,
+} from "../../../../utils/date";
 import { mapWeather } from "../../../../utils/mapWeather";
+import { weatherIconMap } from "../../../../utils/weatherMapIcon.js";
+import Ensolarado from "../../../../assets/Ensolarado.svg?react";
 
 function WeatherCurrent({ weather, forecast }) {
   if (!weather) return null;
 
   const mapped = mapWeather(weather);
+  const Icon = weatherIconMap[mapped.iconCode] || Ensolarado;
 
   return (
     <div className="weather-Current">
       <div className="weather-current__container">
         <div className="weather-current__wrap-one">
-          <ImageLocation className="weather-current__image" />
+          <Icon className="weather-current__image" />
           <div>
-            <p className="weather-current__date">{getWeekDayShort()} {getDayAndMonth()}</p>
-            <p className="weather-current__weather">
-              {mapped.description}
+            <p className="weather-current__date">
+              {getWeekDayShort()} {getDayAndMonth()}
             </p>
+            <p className="weather-current__weather">{mapped.description}</p>
           </div>
         </div>
 
@@ -36,16 +45,12 @@ function WeatherCurrent({ weather, forecast }) {
       <div className="weather-current__meta">
         <div className="weather-current__meta-iten">
           <p className="weather-current__meta-text">Pressão</p>
-          <p className="weather-current__meta-num">
-            {mapped.pressure} hPa
-          </p>
+          <p className="weather-current__meta-num">{mapped.pressure} hPa</p>
         </div>
 
         <div className="weather-current__meta-iten">
           <p className="weather-current__meta-text">Humidade</p>
-          <p className="weather-current__meta-num">
-            {mapped.humidity}%
-          </p>
+          <p className="weather-current__meta-num">{mapped.humidity}%</p>
         </div>
 
         <div className="weather-current__meta-iten">
@@ -75,7 +80,7 @@ function WeatherCurrent({ weather, forecast }) {
       <p className="weather-Current__title">Gráfico de Temperatura</p>
 
       <div className="weather-Current__charts">
-        <WeatherChart forecast={forecast}/>
+        <WeatherChart forecast={forecast} />
       </div>
     </div>
   );

@@ -8,5 +8,6 @@ export function mapWeather(data) {
     visibility: data.visibility,
     sunrise: data.sys.sunrise,
     sunset: data.sys.sunset,
+    iconCode: data.weather[0].icon,
   };
 }
