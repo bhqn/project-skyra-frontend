@@ -6,3 +6,13 @@
   padding: 12px 8px;
   height: 300px;
 }
+
+.weather-chart  {
+  border: none ;
+}
+
+.weather-chart :focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: 0 0 0 0;
+}

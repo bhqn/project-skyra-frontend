@@ -18,8 +18,7 @@ function Forecast({ forecast }) {
           return (
             <div className="forecast__card-iten" key={index}>
               <p className="forecast__card-title">{day.name}</p>
-
-              {Icon ? <Icon className="forecast__card-image" /> : null}
+         {Icon ? <Icon className="forecast__card-image" /> : null}
 
               <p className="forecast__card-temp">{day.temp}</p>
             </div>

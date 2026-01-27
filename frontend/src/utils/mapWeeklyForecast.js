@@ -20,13 +20,13 @@ export default function mapWeeklyForecast(forecast) {
     }
   }
 
-  return Array.from(byDay.values()).slice(0, 7).map((item) => {
+  return Array.from(byDay.values()).slice(0, 7 ).map((item) => {
     const date = new Date(item.dt * 1000);
     const iconCode = item.weather?.[0]?.icon;
     const Icon = weatherIconMap[iconCode];
 
     return {
-      name: date.toLocaleDateString("pt-BR", { weekday: "short" }), // seg, ter, qua...
+      name: date.toLocaleDateString("pt-BR", { weekday: "long" }), // seg, ter, qua...
       temp: `${Math.round(item.main?.temp)}°C`,
       iconCode,
       Icon,

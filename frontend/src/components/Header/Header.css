@@ -20,15 +20,14 @@
   align-items: center;
 }
 
-.header__text{
-    font-size: 16px;
+.header__text {
+  font-size: 16px;
 }
 
-.header__username{
-    font-size: 24px;
-    font-weight:900; 
+.header__username {
+  font-size: 24px;
+  font-weight: 900;
 }
-
 
 .header__search {
   width: 100%;
@@ -36,7 +35,7 @@
   height: 60px;
   margin-left: auto;
   border-radius: 40px;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   position: relative; /* necessário para o ícone absoluto */
   display: flex;
   align-items: center;
@@ -54,3 +53,7 @@
   padding-left: 0; /* já tem padding no container */
 }
 
+.header__search:focus {
+  outline: none;
+  border: none;
+}

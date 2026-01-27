@@ -1,9 +1,10 @@
 import "./Header.css";
 import userImage from "../../assets/usericon.svg";
 import SearchIcon from "../../assets/Search.svg";
+import CapitalAutocomplete from "../AutoComplete/CapitalAutocomplete";
 
 
-function Header({ userData }) {
+function Header( { onSelectCapital, userData }) {
   return (
     <header className="header">
       <img className="logo" src={userImage} alt="logo around" />
@@ -15,7 +16,7 @@ function Header({ userData }) {
         </div>
          <div className="header__search">
       <img src={SearchIcon} alt="Search" className="search-icon" />
-      <input type="text" placeholder="Localizar" />
+      <CapitalAutocomplete onSelect={onSelectCapital} type="text" placeholder="Localizar" />
     </div>
       </div>
     </header>
