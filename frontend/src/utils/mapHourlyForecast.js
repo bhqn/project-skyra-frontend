@@ -1,3 +1,5 @@
+//funcao de horas do dia
+
 export default function mapHourlyForecast(forecast) {
   if (!forecast || !forecast.list) return [];
 
@@ -9,3 +11,4 @@ export default function mapHourlyForecast(forecast) {
     temp: Math.round(item.main.temp),
   }));
 }
+

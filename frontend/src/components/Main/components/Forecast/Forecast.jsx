@@ -1,32 +1,30 @@
 import "./Forecast.css";
-import ForecastImage from "../../../../assets/sunny.svg"; // use import normal para SVG
+import mapWeeklyForecast from "../../../../utils/mapWeeklyForecast";
 
-const days = [
-  { name: "Segunda", image: ForecastImage, temp: "26°C" },
-  { name: "Terça", image: ForecastImage, temp: "29°C" },
-  { name: "Quarta", image: ForecastImage, temp: "24°C" },
-  { name: "Quinta", image: ForecastImage, temp: "18°C" },
-  { name: "Sexta", image: ForecastImage, temp: "18°C" },
-  { name: "Sábado", image: ForecastImage, temp: "18°C" },
-  { name: "Domingo", image: ForecastImage, temp: "18°C" },
-];
+function Forecast({ forecast }) {
+  if (!forecast) return null;
 
-function Forecast() {
+  const days = mapWeeklyForecast(forecast);
+  if (!days.length) return null;
+
   return (
     <section className="forecast">
       <p className="forecast__title">Previsão da semana</p>
+
       <div className="forecast__card">
-        {days.map((day, index) => (
-          <div className="forecast__card-iten" key={index}>
-            <p className="forecast__card-title">{day.name}</p>
-            <img
-              src={day.image}
-              alt={day.name}
-              className="forecast__card-image"
-            />
-            <p className="forecast__card-temp">{day.temp}</p>
-          </div>
-        ))}
+        {days.map((day, index) => {
+          const Icon = day.Icon;
+
+          return (
+            <div className="forecast__card-iten" key={index}>
+              <p className="forecast__card-title">{day.name}</p>
+
+              {Icon ? <Icon className="forecast__card-image" /> : null}
+
+              <p className="forecast__card-temp">{day.temp}</p>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

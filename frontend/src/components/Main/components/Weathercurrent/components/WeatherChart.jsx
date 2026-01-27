@@ -1,5 +1,5 @@
 import "./WeatherChart.css";
-import mapHourlyForecast from "../../../../../utils/mapForecast";
+import  mapHourlyForecast  from "../../../../../utils/mapHourlyForecast"
 import {
   LineChart,
   Line,
