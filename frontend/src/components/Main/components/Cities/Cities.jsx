@@ -1,37 +1,39 @@
-import CitiesImage from "../../../../assets/sunny.svg"; 
 import Delete from "../../../../assets/delete.svg"
 import "./Cities.css"; 
+import { weatherIconMap } from "../../../../utils/weatherMapIcon";
+import React from "react";
 
-const cities = [
-  { image: CitiesImage, name: "São Paulo, SP",weather: "Ensolarado" ,temp: "26°C" },
-  { image: CitiesImage, name: "Rio de Janeiro, RJ",weather: "Ensolarado", temp: "29°C" },
-  { image: CitiesImage, name: "Belo Horizonte, MG",weather: "Ensolarado", temp: "24°C" },
-  { image: CitiesImage, name: "Curitiba, PR", weather: "Ensolarado", temp: "18°C" },
-  
-];
+function Cities({ cities = [], onAddCity, onRemoveCity, weather, capital }) {
+  const handleDeleteClick = (uf) => {
+    onRemoveCity(uf);
+  };
 
-function Cities() {
+  const handleAddCard = () =>{
+     if (capital && weather) {
+       onAddCity(capital, weather);
+     }
+  }
   return (
     <section className="cities__section">
       <p className="cities__title">Outras Cidades</p>
       <div className="cities__carousel">
         {cities.map((city, index) => (
           <button  className="cities__card" key={index}>
-            <img src={Delete} alt="delete" className="cities__delete" />
+            <img src={Delete} alt="delete" className="cities__delete" onClick={() => handleDeleteClick(city.uf)}/>
             <div className="cities__wrap">
-              <img src={city.image} alt="sol" className="cities__image" />
+              {weatherIconMap[city.iconCode] && React.createElement(weatherIconMap[city.iconCode], { className: "cities__image" })}
                 <div className="cities__content">
-              <p className="cities__name">{city.name}</p>
-              <p className="cities__weather">{city.weather}</p>
+              <p className="cities__name">{city.nome}</p>
+              <p className="cities__weather">{city.description}</p>
               </div>
               
-              <p className="cities__temp">{city.temp}</p>
+              <p className="cities__temp">{city.temp}°C</p>
             </div>
           </button >
         ))}
         
       </div>
-      <button className="cities__add-btn"> + </button>
+      <button className="cities__add-btn"onClick={handleAddCard}> + </button>
     </section>
   );
 }

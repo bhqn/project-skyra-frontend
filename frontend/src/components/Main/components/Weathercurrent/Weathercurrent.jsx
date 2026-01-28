@@ -8,14 +8,13 @@ import {
   getWeekDayLong,
   getWeekDayShort,
 } from "../../../../utils/date";
-import { mapWeather } from "../../../../utils/mapWeather";
 import { weatherIconMap } from "../../../../utils/weatherMapIcon.js";
 import Ensolarado from "../../../../assets/Ensolarado.svg?react";
 
 function WeatherCurrent({ weather, forecast }) {
   if (!weather) return null;
 
-  const mapped = mapWeather(weather);
+  const mapped = weather;
   const Icon = weatherIconMap[mapped.iconCode] || Ensolarado;
 
   return (
