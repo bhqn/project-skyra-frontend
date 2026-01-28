@@ -25,3 +25,7 @@ input:focus {
   border-color: transparent;
   box-shadow: 0 0 0 0;
 }
+
+#root {
+  max-width: none;   
+}

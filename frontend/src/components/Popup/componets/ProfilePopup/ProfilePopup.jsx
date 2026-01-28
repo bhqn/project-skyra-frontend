@@ -19,6 +19,8 @@ export default function ProfilePopup({ onSubmit, values, onChange, onClose }) {
       });
     }
 
+    onClose();
+
     onSubmit?.();
   }
 
@@ -41,7 +43,11 @@ export default function ProfilePopup({ onSubmit, values, onChange, onClose }) {
     <div className="profilePopup">
       <div className="profilePopup__avatarWrap">
         <div className="profilePopup__avatar">
-         <img className="profilePopup__image" src={profile?.avatar || userImage} alt="logo around" />
+          <img
+            className="profilePopup__image"
+            src={profile?.avatar || userImage}
+            alt="logo around"
+          />
         </div>
 
         {/* input escondido */}

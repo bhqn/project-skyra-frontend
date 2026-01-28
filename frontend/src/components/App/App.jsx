@@ -10,10 +10,11 @@ import Loader from "../Loader/Loader";
 import { mapWeather } from "../../utils/mapWeather";
 import Popup from "../Popup/Popup";
 import { ProfileProvider } from "../../context/ProfileContext";
-
+import Login from "../Login/Login";
+import Register from "../Register/Register";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
-  
   const [isOpen, setIsOpen] = useState(false);
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
@@ -44,11 +45,10 @@ function App() {
 
   //fechar popup com ESC
   useEffect(() => {
-  const onEsc = (e) => e.key === "Escape" && onClose();
-  window.addEventListener("keydown", onEsc);
-  return () => window.removeEventListener("keydown", onEsc);
-  
-}, []);
+    const onEsc = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onEsc);
+    return () => window.removeEventListener("keydown", onEsc);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("savedCities", JSON.stringify(savedCities));
@@ -71,12 +71,12 @@ function App() {
   }, [capital.lat, capital.lon]);
 
   const onOpen = () => {
-  setIsOpen(true);
-};
+    setIsOpen(true);
+  };
 
-const onClose = () => {
-  setIsOpen(false);
-};
+  const onClose = () => {
+    setIsOpen(false);
+  };
 
   function handleCapitalSelect(selected) {
     setCapital(selected); // <- ESSENCIAL
@@ -107,16 +107,13 @@ const onClose = () => {
 
   function handleRemoveCity(uf) {
     setSavedCities((prev) => prev.filter((c) => c.uf !== uf));
-     if (uf === activeCityUf) {
-    setActiveCityUf(false);
-    localStorage.removeItem("activeCityUf");
-  }
-    
-    
+    if (uf === activeCityUf) {
+      setActiveCityUf(false);
+      localStorage.removeItem("activeCityUf");
+    }
   }
 
   function handleSelectSavedCity(city) {
-   
     setCapital({
       nome: city.nome,
       uf: city.uf,
@@ -124,38 +121,53 @@ const onClose = () => {
       lon: city.lon,
     });
 
-     //salvar cidade selecionada
+    //salvar cidade selecionada
     setActiveCityUf(city.uf);
     localStorage.setItem("activeCityUf", city.uf);
   }
 
+return (
+  <>
+    <Routes>
+      {/* Rotas públicas */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-  return (
-    <>
-     <ProfileProvider  userData={userData}>
-      <Header userData={userData} onSelectCapital={handleCapitalSelect} />
+      {/* App */}
+      <Route
+        path="/"
+        element={
+          <ProfileProvider userData={userData}>
+            <Header
+              userData={userData}
+              onSelectCapital={handleCapitalSelect}
+            />
 
-      {loading && <Loader />}
-      {error && <p>{error}</p>}
-      {!loading && weather && forecast && (
-        <Main
-          weather={weather}
-          forecast={forecast}
-          savedCities={savedCities}
-          onAddCity={handleAddCity}
-          onRemoveCity={handleRemoveCity}
-          onSelectCity={handleSelectSavedCity}
-          capital={capital}
-          setActiveCityUf={setActiveCityUf}
-          activeCityUf={activeCityUf}
-          onOpen ={onOpen}
-          
-        />
-      )}
-       {isOpen && <Popup isOpen={isOpen} onClose={onClose} />}
-       </ProfileProvider>
-    </>
-  );
+            {loading && <Loader />}
+            {error && <p>{error}</p>}
+
+            {!loading && weather && forecast && (
+              <Main
+                weather={weather}
+                forecast={forecast}
+                savedCities={savedCities}
+                onAddCity={handleAddCity}
+                onRemoveCity={handleRemoveCity}
+                onSelectCity={handleSelectSavedCity}
+                capital={capital}
+                setActiveCityUf={setActiveCityUf}
+                activeCityUf={activeCityUf}
+                onOpen={onOpen}
+              />
+            )}
+
+            {isOpen && <Popup isOpen={isOpen} onClose={onClose} />}
+          </ProfileProvider>
+        }
+      />
+    </Routes>
+  </>
+);
 }
 
 export default App;
