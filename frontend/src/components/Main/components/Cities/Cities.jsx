@@ -3,7 +3,15 @@ import "./Cities.css";
 import { weatherIconMap } from "../../../../utils/weatherMapIcon";
 import React from "react";
 
-function Cities({ cities = [], onAddCity, onRemoveCity, weather, capital, onSelectCity}) {
+function Cities({
+  cities = [],
+  onAddCity,
+  onRemoveCity,
+  weather,
+  capital,
+  onSelectCity,
+  activeCityUf
+}) {
   const handleDeleteClick = (uf) => {
     onRemoveCity(uf);
   };
@@ -20,7 +28,9 @@ function Cities({ cities = [], onAddCity, onRemoveCity, weather, capital, onSele
       <div className="cities__carousel">
         {cities.map((city) => (
           <button
-            className="cities__card"
+            className={`cities__card ${
+              city.uf === activeCityUf ? "cities__card--active" : ""
+            }`}
             key={`${city.uf ?? "??"}-${city.lat ?? "x"}-${city.lon ?? "y"}`}
             type="button"
             onClick={() => onSelectCity(city)}
@@ -29,7 +39,10 @@ function Cities({ cities = [], onAddCity, onRemoveCity, weather, capital, onSele
               src={Delete}
               alt="delete"
               className="cities__delete"
-              onClick={() => handleDeleteClick(city.uf)}
+              onClick={(e) => {
+                console.log("activeCityUf:", activeCityUf);
+                 e.stopPropagation();
+                handleDeleteClick(city.uf)}}
             />
             <div className="cities__wrap">
               {weatherIconMap[city.iconCode] &&
@@ -37,7 +50,9 @@ function Cities({ cities = [], onAddCity, onRemoveCity, weather, capital, onSele
                   className: "cities__image",
                 })}
               <div className="cities__content">
-                <p className="cities__name">{city.nome}</p>
+                <p className="cities__name">
+                  {city.nome}, {city.uf}
+                </p>
                 <p className="cities__weather">{city.description}</p>
               </div>
 

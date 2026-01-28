@@ -53,6 +53,11 @@ margin-top: 30px;
   background-color: #FBF5E8;
 }
 
+.cities__card--active {
+  background-color: #FBF5E8;
+  box-shadow: 0 0 0 2px #e6dcbf;
+}
+
 
 .cities__delete {
     display: flex;

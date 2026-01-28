@@ -9,7 +9,7 @@ import Cities from "./components/Cities/Cities";
 
 
 
-function Main({weather, forecast, savedCities, onAddCity, onRemoveCity, capital,  onSelectCity}) {
+function Main({weather, forecast, savedCities, onAddCity, onRemoveCity, capital,  onSelectCity, activeCityUf}) {
   return (
     <>
     <main className="main">
@@ -25,6 +25,7 @@ function Main({weather, forecast, savedCities, onAddCity, onRemoveCity, capital,
      weather={weather} 
      capital={capital}
      onSelectCity={onSelectCity}
+      activeCityUf={activeCityUf}
      />
      
      </div>

@@ -14,15 +14,32 @@ function App() {
   const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [savedCities, setSavedCities] = useState([]);
+  const [savedCities, setSavedCities] = useState(() => {
+    try {
+      const raw = localStorage.getItem("savedCities");
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  //salvar cidade ativa
+  const [activeCityUf, setActiveCityUf] = useState(() => {
+    return localStorage.getItem("activeCityUf");
+  });
 
   const [capital, setCapital] = useState({
     nome: "Rio de Janeiro",
+    uf: "RJ",
     lat: -22.9068,
     lon: -43.1729,
   });
 
   const userData = { username: "Bernardo" };
+
+  useEffect(() => {
+    localStorage.setItem("savedCities", JSON.stringify(savedCities));
+  }, [savedCities]);
 
   useEffect(() => {
     setLoading(true);
@@ -33,7 +50,7 @@ function App() {
       getForecastByCoords(capital.lat, capital.lon),
     ])
       .then(([weatherData, forecastData]) => {
-        setWeather(mapWeather(weatherData)); 
+        setWeather(mapWeather(weatherData));
         setForecast(forecastData);
       })
       .catch(() => setError("Não foi possível carregar o clima"))
@@ -46,7 +63,7 @@ function App() {
 
   function handleAddCity(capital, weather) {
     setSavedCities((prev) => {
-      const exists = prev.some((c) => c.uf === capital.uf); 
+      const exists = prev.some((c) => c.uf === capital.uf);
       if (exists) return prev;
 
       return [
@@ -63,6 +80,8 @@ function App() {
         },
       ];
     });
+    setActiveCityUf(capital.uf);
+    localStorage.setItem("activeCityUf", capital.uf);
   }
 
   function handleRemoveCity(uf) {
@@ -70,13 +89,17 @@ function App() {
   }
 
   function handleSelectSavedCity(city) {
-  setCapital({
-    nome: city.nome,
-    lat: city.lat,
-    lon: city.lon,
-  });
-}
+   
+    setCapital({
+      nome: city.nome,
+      lat: city.lat,
+      lon: city.lon,
+    });
 
+     //salvar cidade selecionada
+    setActiveCityUf(city.uf);
+    localStorage.setItem("activeCityUf", city.uf);
+  }
 
   return (
     <>
@@ -93,6 +116,8 @@ function App() {
           onRemoveCity={handleRemoveCity}
           onSelectCity={handleSelectSavedCity}
           capital={capital}
+          setActiveCityUf={setActiveCityUf}
+          activeCityUf={activeCityUf}
         />
       )}
     </>
