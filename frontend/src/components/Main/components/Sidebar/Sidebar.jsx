@@ -4,7 +4,9 @@ import AboutIcon from "../../../../assets/about.svg?react";
 import SettingsIcon from "../../../../assets/Settings.svg?react";
 import ExitIcon from "../../../../assets/exit.svg?react";
 
-function Sidebar() {
+
+
+function Sidebar( {onOpenProfile }) {
   return (
     <section className="sidebar">
       <div className="sidebar__container">
@@ -16,8 +18,8 @@ function Sidebar() {
           <AboutIcon className="sidebar__icon" />
         </button>
 
-        <button className="sidebar__button" aria-label="Settings">
-          <SettingsIcon className="sidebar__icon" />
+        <button className="sidebar__button" aria-label="Settings" onClick={onOpenProfile}>
+          <SettingsIcon className="sidebar__icon"  />
         </button>
 
         <button className="sidebar__button" aria-label="Exit">

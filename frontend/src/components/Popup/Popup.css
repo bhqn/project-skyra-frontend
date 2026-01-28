@@ -1,0 +1,67 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+}
+
+
+.popup__content_content_image {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.popup__content {
+  position: relative;
+  background: #fff;
+  border-radius: 10px;
+  padding: 36px 34px 36px 34px;
+  width: 400px;
+  max-width: 430px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.popup__close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 40px;
+  height: 40px;
+  background: url("../../assets/delete.svg") no-repeat center;
+  background-size: contain;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.popup__button {
+  position: relative;
+  top: 30%;
+  width: 430px;
+}
+
+.popup__title {
+  color: black;
+  margin: 0 0 54px 0;
+
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0;
+  max-width: 330px;
+}

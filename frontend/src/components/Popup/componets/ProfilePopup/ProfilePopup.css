@@ -1,0 +1,101 @@
+.profilePopup__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 9999;
+}
+
+
+
+.profilePopup__close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  line-height: 1;
+  color: #bdbdbd;
+  cursor: pointer;
+}
+
+.profilePopup__avatarWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  margin-bottom: 18px;
+}
+
+.profilePopup__avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 3px solid #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111;
+}
+
+.profilePopup__changePhoto {
+  border: none;
+  background: transparent;
+  color: #111;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.profilePopup__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.profilePopup__input {
+  width: 100%;
+  max-width: 260px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid #dcdcdc;
+  padding: 0 18px;
+  outline: none;
+  font-size: 14px;
+}
+
+.profilePopup__input::placeholder {
+  color: #9f9f9f;
+}
+
+.profilePopup__input:focus {
+  border-color: #bfc7ff;
+  box-shadow: 0 0 0 4px rgba(63, 94, 251, 0.12);
+}
+
+.profilePopup__btn {
+  margin-top: 6px;
+  width: 180px;
+  height: 54px;
+  border: none;
+  border-radius: 999px;
+  background: #1f5bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 22px rgba(31, 91, 255, 0.28);
+  transition: transform 0.15s ease;
+}
+
+.profilePopup__btn:active {
+  transform: scale(0.98);
+}

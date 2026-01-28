@@ -8,8 +8,12 @@ import {
 } from "../../utils/weatherApi";
 import Loader from "../Loader/Loader";
 import { mapWeather } from "../../utils/mapWeather";
+import Popup from "../Popup/Popup";
 
 function App() {
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [popup, setPopup] = useState(null);
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -37,6 +41,14 @@ function App() {
 
   const userData = { username: "Bernardo" };
 
+  //fechar popup com ESC
+  useEffect(() => {
+  const onEsc = (e) => e.key === "Escape" && onClose();
+  window.addEventListener("keydown", onEsc);
+  return () => window.removeEventListener("keydown", onEsc);
+  
+}, []);
+
   useEffect(() => {
     localStorage.setItem("savedCities", JSON.stringify(savedCities));
   }, [savedCities]);
@@ -56,6 +68,14 @@ function App() {
       .catch(() => setError("Não foi possível carregar o clima"))
       .finally(() => setLoading(false));
   }, [capital.lat, capital.lon]);
+
+  const onOpen = () => {
+  setIsOpen(true);
+};
+
+const onClose = () => {
+  setIsOpen(false);
+};
 
   function handleCapitalSelect(selected) {
     setCapital(selected); // <- ESSENCIAL
@@ -86,6 +106,12 @@ function App() {
 
   function handleRemoveCity(uf) {
     setSavedCities((prev) => prev.filter((c) => c.uf !== uf));
+     if (uf === activeCityUf) {
+    setActiveCityUf(false);
+    localStorage.removeItem("activeCityUf");
+  }
+    
+    
   }
 
   function handleSelectSavedCity(city) {
@@ -119,8 +145,11 @@ function App() {
           capital={capital}
           setActiveCityUf={setActiveCityUf}
           activeCityUf={activeCityUf}
+          onOpen ={onOpen}
+          
         />
       )}
+       {isOpen && <Popup isOpen={isOpen} onClose={onClose} />}
     </>
   );
 }

@@ -60,16 +60,8 @@ margin: auto;
   width: 120px;
   height: auto;
   display: block;
-  color: initial;
-  fill: initial;
-  stroke: initial;
-
 }
 
-.forecast__card-image * {
-  fill: initial;
-  stroke: initial;
-}
 .forecast__card-temp{
 margin: auto;
 font-size: 20px;
