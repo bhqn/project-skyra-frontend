@@ -12,6 +12,20 @@
   
 }
 
+.weather-current--active {
+    padding-top: 24px;
+  padding-right: 20px;
+  padding-left: 20px;
+  width: 800px;
+  margin-left: 30px;
+  height: calc(100vh - 150px);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to top, #ffffff 9%, #FBF5E8 100%);
+  
+}
+
 .weather-current__container {
   justify-content: space-between;
   width: 100%;

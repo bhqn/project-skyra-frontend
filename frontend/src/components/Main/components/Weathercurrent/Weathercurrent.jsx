@@ -11,14 +11,17 @@ import {
 import { weatherIconMap } from "../../../../utils/weatherMapIcon.js";
 import Ensolarado from "../../../../assets/Ensolarado.svg?react";
 
-function WeatherCurrent({ weather, forecast }) {
+function WeatherCurrent({ weather, forecast, capital, activeCityUf }) {
   if (!weather) return null;
+  const isActive = capital?.uf === activeCityUf;
 
   const mapped = weather;
   const Icon = weatherIconMap[mapped.iconCode] || Ensolarado;
 
   return (
-    <div className="weather-Current">
+    <div className={`weather-Current ${
+        isActive ? "weather-current--active" : ""
+      }`}>
       <div className="weather-current__container">
         <div className="weather-current__wrap-one">
           <Icon className="weather-current__image" />

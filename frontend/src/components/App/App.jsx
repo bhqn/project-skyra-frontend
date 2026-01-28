@@ -92,6 +92,7 @@ function App() {
    
     setCapital({
       nome: city.nome,
+      uf: city.uf,
       lat: city.lat,
       lon: city.lon,
     });

@@ -14,7 +14,7 @@ function Main({weather, forecast, savedCities, onAddCity, onRemoveCity, capital,
     <>
     <main className="main">
      <Sidebar/>
-     <WeatherCurrent weather={weather} forecast={forecast} />
+     <WeatherCurrent weather={weather} forecast={forecast} capital={capital} activeCityUf={activeCityUf} />
      <div className="main__wrap">
      <Forecast weather={weather} forecast={forecast} 
      />
