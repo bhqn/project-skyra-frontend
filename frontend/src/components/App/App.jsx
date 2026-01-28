@@ -33,7 +33,7 @@ function App() {
       getForecastByCoords(capital.lat, capital.lon),
     ])
       .then(([weatherData, forecastData]) => {
-        setWeather(mapWeather(weatherData)); // ✅ agora é mapeado
+        setWeather(mapWeather(weatherData)); 
         setForecast(forecastData);
       })
       .catch(() => setError("Não foi possível carregar o clima"))
@@ -46,7 +46,7 @@ function App() {
 
   function handleAddCity(capital, weather) {
     setSavedCities((prev) => {
-      const exists = prev.some((c) => c.uf === capital.uf); // ✅
+      const exists = prev.some((c) => c.uf === capital.uf); 
       if (exists) return prev;
 
       return [
@@ -58,6 +58,8 @@ function App() {
           temp: weather.temp,
           description: weather.description,
           iconCode: weather.iconCode,
+          lat: capital.lat,
+          lon: capital.lon,
         },
       ];
     });
@@ -66,6 +68,15 @@ function App() {
   function handleRemoveCity(uf) {
     setSavedCities((prev) => prev.filter((c) => c.uf !== uf));
   }
+
+  function handleSelectSavedCity(city) {
+  setCapital({
+    nome: city.nome,
+    lat: city.lat,
+    lon: city.lon,
+  });
+}
+
 
   return (
     <>
@@ -80,6 +91,7 @@ function App() {
           savedCities={savedCities}
           onAddCity={handleAddCity}
           onRemoveCity={handleRemoveCity}
+          onSelectCity={handleSelectSavedCity}
           capital={capital}
         />
       )}
