@@ -1,22 +1,63 @@
+import { useContext, useRef } from "react";
 import "./ProfilePopup.css";
+import { ProfileContext } from "../../../../context/ProfileContext";
+import userImage from "../../../../assets/usericon.svg";
 
 export default function ProfilePopup({ onSubmit, values, onChange, onClose }) {
+  const { profile, setProfile } = useContext(ProfileContext);
+  const fileRef = useRef(null);
+
   function handleSubmit(e) {
     e.preventDefault();
+
+    // salvar username no contexto
+    if (values?.username) {
+      setProfile((prev) => {
+        const next = { ...prev, username: values.username };
+        localStorage.setItem("profile", JSON.stringify(next));
+        return next;
+      });
+    }
+
     onSubmit?.();
+  }
+
+  function handleAvatarChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setProfile((prev) => {
+        const next = { ...prev, avatar: reader.result };
+        localStorage.setItem("profile", JSON.stringify(next));
+        return next;
+      });
+    };
+    reader.readAsDataURL(file);
   }
 
   return (
     <div className="profilePopup">
       <div className="profilePopup__avatarWrap">
         <div className="profilePopup__avatar">
-          <svg width="76" height="76" viewBox="0 0 64 64" aria-hidden="true">
-            <circle cx="32" cy="32" r="26" fill="none" stroke="currentColor" strokeWidth="3" />
-            <circle cx="32" cy="26" r="8" fill="none" stroke="currentColor" strokeWidth="3" />
-            <path d="M18 49c3.5-7 24.5-7 28 0" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-          </svg>
+         <img className="profilePopup__image" src={profile?.avatar || userImage} alt="logo around" />
         </div>
-        <button className="profilePopup__changePhoto" type="button">
+
+        {/* input escondido */}
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          onChange={handleAvatarChange}
+          style={{ display: "none" }}
+        />
+
+        <button
+          className="profilePopup__changePhoto"
+          type="button"
+          onClick={() => fileRef.current?.click()}
+        >
           alterar foto
         </button>
       </div>

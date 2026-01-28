@@ -9,11 +9,12 @@ import {
 import Loader from "../Loader/Loader";
 import { mapWeather } from "../../utils/mapWeather";
 import Popup from "../Popup/Popup";
+import { ProfileProvider } from "../../context/ProfileContext";
+
 
 function App() {
-  const [profileOpen, setProfileOpen] = useState(false);
+  
   const [isOpen, setIsOpen] = useState(false);
-  const [popup, setPopup] = useState(null);
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -128,8 +129,10 @@ const onClose = () => {
     localStorage.setItem("activeCityUf", city.uf);
   }
 
+
   return (
     <>
+     <ProfileProvider  userData={userData}>
       <Header userData={userData} onSelectCapital={handleCapitalSelect} />
 
       {loading && <Loader />}
@@ -150,6 +153,7 @@ const onClose = () => {
         />
       )}
        {isOpen && <Popup isOpen={isOpen} onClose={onClose} />}
+       </ProfileProvider>
     </>
   );
 }

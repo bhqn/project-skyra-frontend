@@ -22,13 +22,18 @@ export default function Popup(props) {
           type="button"
           onClick={onClose}
         />
-       <ProfilePopup open={isOpen} onChange={(e) =>
+       <ProfilePopup 
+        open={isOpen} 
+        values={form}
+        onChange={(e) =>
           setForm({ ...form, [e.target.name]: e.target.value })
         }
         onSubmit={() => {
           console.log("submit", form);
           setIsOpen(false);
-        }}/>
+        }}
+        onClose={onClose}
+        />
       </div>
     </div>
   );
