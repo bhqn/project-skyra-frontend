@@ -13,11 +13,15 @@ function Cities({ cities = [], onAddCity, onRemoveCity, weather, capital }) {
        onAddCity(capital, weather);
      }
   }
+
+ 
   return (
     <section className="cities__section">
       <p className="cities__title">Outras Cidades</p>
       <div className="cities__carousel">
         {cities.map((city, index) => (
+          
+          
           <button  className="cities__card" key={index}>
             <img src={Delete} alt="delete" className="cities__delete" onClick={() => handleDeleteClick(city.uf)}/>
             <div className="cities__wrap">
