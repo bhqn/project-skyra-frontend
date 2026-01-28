@@ -10,7 +10,7 @@ function Cities({
   weather,
   capital,
   onSelectCity,
-  activeCityUf
+  activeCityUf,
 }) {
   const handleDeleteClick = (uf) => {
     onRemoveCity(uf);
@@ -22,6 +22,7 @@ function Cities({
     }
   };
 
+  const canAdd = capital?.uf && !cities.some((c) => c.uf === capital.uf);
   return (
     <section className="cities__section">
       <p className="cities__title">Outras Cidades</p>
@@ -41,8 +42,9 @@ function Cities({
               className="cities__delete"
               onClick={(e) => {
                 console.log("activeCityUf:", activeCityUf);
-                 e.stopPropagation();
-                handleDeleteClick(city.uf)}}
+                e.stopPropagation();
+                handleDeleteClick(city.uf);
+              }}
             />
             <div className="cities__wrap">
               {weatherIconMap[city.iconCode] &&
@@ -61,7 +63,11 @@ function Cities({
           </button>
         ))}
       </div>
-      <button className="cities__add-btn" onClick={handleAddCard}>
+      <button
+        className={`cities__add-btn ${canAdd ? "cities__add-btn--active" : ""}`}
+  onClick={handleAddCard}
+  disabled={!canAdd}
+      >
         {" "}
         +{" "}
       </button>

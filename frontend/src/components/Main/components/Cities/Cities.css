@@ -1,12 +1,10 @@
-
 .cities__section {
   margin-top: 60px;
-    margin-left: 30px
-  
+  margin-left: 30px;
 }
 
 .cities__title {
-margin-top: 30px;
+  margin-top: 30px;
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 30px;
@@ -17,9 +15,9 @@ margin-top: 30px;
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 150px;
   gap: 16px;
-  max-height: 360px;        /* ajusta conforme seu layout */
+  max-height: 360px; /* ajusta conforme seu layout */
   overflow-y: auto;
-  padding-right: 8px;       /* evita o scroll sobrepor conteúdo */
+  padding-right: 8px; /* evita o scroll sobrepor conteúdo */
   overscroll-behavior: contain;
 }
 
@@ -32,16 +30,18 @@ margin-top: 30px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-.cities__wrap{
-    padding-right: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+.cities__wrap {
+  padding-right: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .cities__card:hover {
@@ -50,24 +50,22 @@ margin-top: 30px;
 }
 
 .cities__card:focus {
-  background-color: #FBF5E8;
+  background-color: #fbf5e8;
 }
 
 .cities__card--active {
-  background-color: #FBF5E8;
+  background-color: #fbf5e8;
 }
 
-
 .cities__delete {
-    display: flex;
-    position: relative;
-    top:-25px;
-    cursor: pointer;
+  display: flex;
+  position: relative;
+  top: -25px;
+  cursor: pointer;
   align-self: flex-end;
   width: 100%;
   max-width: 40px;
   height: 20px;
-  
 }
 
 .cities__image {
@@ -79,13 +77,13 @@ margin-top: 30px;
   width: 45px;
 }
 
-.cities__content{
-    position: relative;
-    
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.cities__content {
+  position: relative;
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .cities__name {
@@ -95,32 +93,48 @@ margin-top: 30px;
 
 .cities__temp {
   margin-right: 5px;
- justify-items: self-end;
- position: relative;
- font-weight: 400;
-font-size: 30px;
-color: #555;
+  justify-items: self-end;
+  position: relative;
+  font-weight: 400;
+  font-size: 30px;
+  color: #555;
 }
 
-.cities__add-btn{
+.cities__add-btn {
   border-radius: 18px;
   margin-top: 30px;
   display: flex;
   height: 60px;
   width: 100%;
   border: none;
-    align-items: center;     
+  align-items: center;
   justify-content: center;
-  font-size: 30px
-  
-  
+  font-size: 30px;
 }
 
-.cities__add-btn:hover{
-    transform: scale(0.98);
+.cities__add-btn:hover {
+  cursor: pointer;
+  transform: scale(0.98);
   z-index: 2;
 }
 
 .cities__add-btn:active {
-  background-color: #FBF5E8;
+  background-color: #fbf5e8;
+  
+}
+
+.cities__add-btn--active {
+  
+  opacity: 1;
+}
+
+
+.cities__add-btn:disabled {
+  opacity: .55;       
+  cursor: default;
+  transform: none;
+}
+
+.cities__add-btn:disabled:active {
+  background-color: inherit;
 }
