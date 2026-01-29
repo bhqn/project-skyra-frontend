@@ -15,9 +15,9 @@
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 150px;
   gap: 16px;
-  max-height: 360px; /* ajusta conforme seu layout */
+  max-height: 360px;
   overflow-y: auto;
-  padding-right: 8px; /* evita o scroll sobrepor conteúdo */
+  padding-right: 8px;
   overscroll-behavior: contain;
 }
 
@@ -30,9 +30,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .cities__wrap {
@@ -49,10 +47,7 @@
   z-index: 2;
 }
 
-.cities__card:focus {
-  background-color: #fbf5e8;
-}
-
+.cities__card:focus,
 .cities__card--active {
   background-color: #fbf5e8;
 }
@@ -73,13 +68,11 @@
   margin-right: 10px;
   display: flex;
   position: relative;
-
   width: 45px;
 }
 
 .cities__content {
   position: relative;
-
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -93,7 +86,6 @@
 
 .cities__temp {
   margin-right: 5px;
-  justify-items: self-end;
   position: relative;
   font-weight: 400;
   font-size: 30px;
@@ -110,6 +102,7 @@
   align-items: center;
   justify-content: center;
   font-size: 30px;
+  transition: transform 0.2s ease;
 }
 
 .cities__add-btn:hover {
@@ -120,21 +113,96 @@
 
 .cities__add-btn:active {
   background-color: #fbf5e8;
-  
 }
 
 .cities__add-btn--active {
-  
   opacity: 1;
 }
 
-
 .cities__add-btn:disabled {
-  opacity: .55;       
+  opacity: 0.55;
   cursor: default;
   transform: none;
 }
 
 .cities__add-btn:disabled:active {
   background-color: inherit;
+}
+
+/* =========================
+   RESPONSIVO
+   ========================= */
+
+@media (max-width: 1024px) {
+  .cities__section {
+    margin-left: 0;
+  }
+
+  .cities__carousel {
+    grid-template-columns: repeat(2, 1fr);
+    max-height: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cities__section {
+    margin-top: 40px;
+  }
+
+  .cities__title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+  }
+
+  .cities__carousel {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 140px;
+    max-height: none;
+    padding-right: 0;
+  }
+
+  .cities__name {
+    font-size: 18px;
+  }
+
+  .cities__temp {
+    font-size: 26px;
+  }
+
+  .cities__add-btn {
+    height: 54px;
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cities__section {
+    margin-top: 32px;
+  }
+
+  .cities__carousel {
+    gap: 12px;
+  }
+
+  .cities__card {
+    padding: 12px;
+  }
+
+  .cities__image {
+    width: 40px;
+  }
+
+  .cities__name {
+    font-size: 16px;
+  }
+
+  .cities__temp {
+    font-size: 24px;
+  }
+
+  .cities__add-btn {
+    height: 50px;
+    font-size: 24px;
+  }
 }

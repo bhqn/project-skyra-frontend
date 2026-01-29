@@ -10,10 +10,9 @@
   align-items: center;
   z-index: 1000;
   margin: 0;
-  padding: 0;
+  padding: 16px;
   flex-direction: column;
 }
-
 
 .popup__content_content_image {
   position: relative;
@@ -22,13 +21,12 @@
   gap: 20px;
 }
 
-
 .popup__content {
   position: relative;
   background: #fff;
-  border-radius: 10px;
-  padding: 36px 34px 36px 34px;
-  width: 400px;
+  border-radius: 12px;
+  padding: 36px 34px;
+  width: 100%;
   max-width: 430px;
   display: flex;
   flex-direction: column;
@@ -50,18 +48,64 @@
 }
 
 .popup__button {
-  position: relative;
-  top: 30%;
-  width: 430px;
+  width: 100%;
 }
 
 .popup__title {
   color: black;
-  margin: 0 0 54px 0;
-
+  margin: 0 0 32px 0;
   font-weight: 900;
   font-size: 24px;
-  line-height: 100%;
-  letter-spacing: 0;
+  line-height: 1.1;
   max-width: 330px;
+}
+
+/* =========================
+   RESPONSIVO
+   ========================= */
+
+@media (max-width: 768px) {
+  .popup {
+    padding: 12px;
+  }
+
+  .popup__content {
+    padding: 28px 22px;
+    border-radius: 14px;
+  }
+
+  .popup__close {
+    top: -16px;
+    right: -16px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .popup__title {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .popup {
+    align-items: flex-end;
+  }
+
+  .popup__content {
+    width: 100%;
+    max-width: none;
+    border-radius: 16px 16px 0 0;
+    padding: 22px 16px;
+  }
+
+  .popup__close {
+    top: 12px;
+    right: 12px;
+  }
+
+  .popup__title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
 }

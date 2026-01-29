@@ -1,21 +1,18 @@
 .sidebar {
-    
-    width: 100px;
-    height: calc(100vh - 150px);
-    background-color: #f4f4f4 ;
-    border-radius: 18px;
-    display: flex;
-    
-
+  width: 100px;
+  height: calc(100vh - 150px);
+  background-color: #f4f4f4;
+  border-radius: 18px;
+  display: flex;
 }
 
-.sidebar__container{
-    margin: 0 auto ;
-    display: flex;
-    flex-direction: column;
-    align-self: flex-end;
-    margin-bottom: 60px;
-
+.sidebar__container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  margin-bottom: 60px;
+  gap: 12px;
 }
 
 .sidebar__button {
@@ -35,5 +32,43 @@
 
 .sidebar__button:hover .sidebar__icon {
   transform: scale(1.15);
-  color: #0254E5;
+  color: #0254e5;
+}
+
+/* =========================
+   RESPONSIVO
+   ========================= */
+
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 80px;
+    
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: 64px;
+    border-radius: 16px;
+    background-color: #ffffff;
+  }
+
+  .sidebar__container {
+    flex-direction: row;
+    align-self: center;
+    margin-bottom: 0;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    height: 56px;
+    background-color: #ffffff;
+  }
+
+  .sidebar__button {
+    padding: 10px;
+  }
 }

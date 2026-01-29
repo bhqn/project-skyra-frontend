@@ -1,11 +1,17 @@
-.forecast{
-margin-left: 30px;
+.forecast {
+  margin-left: 30px;
   width: 99%;
+}
+
+.forecast__title {
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 900;
 }
 
 .forecast__card {
   display: flex;
-  flex-direction: row;        
+  flex-direction: row;
   gap: 16px;
 
   margin-top: 30px;
@@ -17,19 +23,11 @@ margin-left: 30px;
   background: linear-gradient(to top, #ffffff 9%, #f4f4f4 100%);
   border-radius: 18px;
 
-  overflow-x: auto;           
+  overflow-x: auto;
   overflow-y: hidden;
 
-  scroll-snap-type: x mandatory; 
+  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-}
-
-
-.forecast__title{
-margin-top: 30px;
-  font-size: 20px;
-  font-weight: 900;
-
 }
 
 .forecast__card-iten {
@@ -37,24 +35,24 @@ margin-top: 30px;
 
   display: flex;
   flex-direction: column;
-  align-items: center;    
+  align-items: center;
   justify-content: center;
 
-  min-width: 180px;        
+  min-width: 180px;
   height: 150px;
 
   border-radius: 18px;
   background: #fff;
 
-  flex-shrink: 0;          
+  flex-shrink: 0;
+  scroll-snap-align: start;
+
+  transition: transform 0.2s ease;
 }
 
-.forecast__card-title{
- 
-margin: auto;
-
+.forecast__card-title {
+  margin: auto;
 }
-
 
 .forecast__card-image {
   width: 120px;
@@ -62,14 +60,92 @@ margin: auto;
   display: block;
 }
 
-.forecast__card-temp{
-margin: auto;
-font-size: 20px;
-    font-weight: 900;
-    
+.forecast__card-temp {
+  margin: auto;
+  font-size: 20px;
+  font-weight: 900;
 }
 
 .forecast__card-iten:hover {
-  transform: scale(1.08);              
-  z-index: 2;                         
+  transform: scale(1.08);
+  z-index: 2;
+}
+
+/* =========================
+   RESPONSIVO
+   ========================= */
+
+@media (max-width: 1024px) {
+  .forecast {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .forecast__card {
+    height: 220px;
+    padding: 14px;
+  }
+
+  .forecast__card-iten {
+    min-width: 170px;
+    height: 145px;
+  }
+
+  .forecast__card-image {
+    width: 110px;
+  }
+}
+
+@media (max-width: 768px) {
+  .forecast__title {
+    margin-top: 22px;
+    font-size: 18px;
+  }
+
+  .forecast__card {
+    margin-top: 18px;
+    height: 200px;
+    padding: 12px;
+    border-radius: 16px;
+    gap: 12px;
+  }
+
+  .forecast__card-iten {
+    min-width: 150px;
+    height: 130px;
+    padding-top: 18px;
+    border-radius: 16px;
+  }
+
+  .forecast__card-image {
+    width: 96px;
+  }
+
+  .forecast__card-temp {
+    font-size: 18px;
+  }
+
+  .forecast__card-iten:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .forecast__card {
+    height: 190px;
+    padding: 10px;
+  }
+
+  .forecast__card-iten {
+    min-width: 138px;
+    height: 122px;
+  }
+
+  .forecast__card-image {
+    width: 88px;
+  }
+
+  .forecast__card-temp {
+    font-size: 17px;
+  }
 }

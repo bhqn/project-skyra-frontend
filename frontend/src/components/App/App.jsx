@@ -12,9 +12,10 @@ import Popup from "../Popup/Popup";
 import { ProfileProvider } from "../../context/ProfileContext";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
@@ -127,16 +128,29 @@ function App() {
   }
 
 return (
-  <>
-    <Routes>
-      {/* Rotas públicas */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+  <Routes>
+    {/* ROTAS PÚBLICAS */}
+    <Route
+      path="/login"
+      element={
+        isLoggedIn ? <Navigate to="/" replace /> : <Login />
+      }
+    />
 
-      {/* App */}
-      <Route
-        path="/"
-        element={
+    <Route
+      path="/register"
+      element={
+        isLoggedIn ? <Navigate to="/" replace /> : <Register />
+      }
+    />
+
+    {/* APP (PROTEGIDA) */}
+    <Route
+      path="/"
+      element={
+        !isLoggedIn ? (
+          <Navigate to="/login" replace />
+        ) : (
           <ProfileProvider userData={userData}>
             <Header
               userData={userData}
@@ -163,11 +177,12 @@ return (
 
             {isOpen && <Popup isOpen={isOpen} onClose={onClose} />}
           </ProfileProvider>
-        }
-      />
-    </Routes>
-  </>
-);
-}
+        )
+      }
+    />
+
+    {/* 404 */}
+    <Route path="*" element={<Navigate to="/" replace />} />
+  </Routes>);}
 
 export default App;

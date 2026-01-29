@@ -1,18 +1,22 @@
 .login {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   gap: 0;
+  overflow-x: hidden;
 }
 
+/* imagem: desktop/tablet */
 .Login__img {
-  width: 461px;
+  width: min(461px, 40vw);
   height: 100vh;
   object-fit: cover;
+  flex: 0 0 auto;
 }
 
+/* form */
 .login__form {
   display: flex;
   flex-direction: column;
@@ -20,16 +24,20 @@
   justify-content: center;
   flex: 1;
   padding: 40px;
-  max-width: 500px;
+  max-width: 520px;
+  width: 100%;
 }
 
+/* tipografia */
 .login__welcome {
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 40px;
   color: #1f1f1f;
+  text-align: center;
 }
 
+/* inputs */
 .login__input {
   width: 100%;
   max-width: 350px;
@@ -86,6 +94,9 @@
   align-items: center;
   justify-content: center;
   font-size: 14px;
+  flex-wrap: wrap;
+  text-align: center;
+  padding: 0 8px;
 }
 
 .login__signin p {
@@ -101,4 +112,74 @@
 
 .login__login-link:hover {
   color: #1645cc;
+}
+
+/* =========================
+   RESPONSIVO
+   ========================= */
+
+/* Tablet: imagem menor e padding reduzido */
+@media (max-width: 1024px) {
+  .Login__img {
+    width: min(360px, 38vw);
+  }
+
+  .login__form {
+    padding: 28px;
+  }
+
+  .login__welcome {
+    font-size: 28px;
+    margin-bottom: 28px;
+  }
+}
+
+/* Mobile: vira 1 coluna, imagem some (ou vira topo) */
+@media (max-width: 768px) {
+  .login {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Opção 1 (recomendada): esconder imagem no mobile */
+  .Login__img {
+    display: none;
+  }
+
+  .login__form {
+    max-width: 420px;
+    padding: 22px 16px;
+    min-height: 100vh;
+  }
+
+  .login__welcome {
+    font-size: 26px;
+    margin-bottom: 24px;
+  }
+
+  .login__link {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+  .login__form {
+    padding: 18px 12px;
+  }
+
+  .login__welcome {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .login__input {
+    max-width: 100%;
+  }
+
+  .login__link {
+    height: 50px;
+    font-size: 15px;
+  }
 }

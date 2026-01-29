@@ -9,11 +9,10 @@
   border-radius: 18px;
   display: flex;
   flex-direction: column;
-  
 }
 
 .weather-current--active {
-    padding-top: 24px;
+  padding-top: 24px;
   padding-right: 20px;
   padding-left: 20px;
   width: 800px;
@@ -22,8 +21,7 @@
   border-radius: 18px;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to top, #ffffff 9%, #FBF5E8 100%);
-  
+  background: linear-gradient(to top, #ffffff 9%, #fbf5e8 100%);
 }
 
 .weather-current__container {
@@ -33,12 +31,15 @@
   display: flex;
   flex-direction: row;
 }
+
 .weather-current__image {
   height: 50px;
 }
 
 .weather-current__wrap-one {
   display: flex;
+  gap: 12px;
+  min-width: 0;
 }
 
 .weather-current__wrap-two {
@@ -57,6 +58,7 @@
   font-size: 20px;
   font-weight: 900;
 }
+
 .weather-current__time {
   font-size: 12px;
   font-weight: 300;
@@ -73,16 +75,20 @@
   margin-left: auto;
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
+  gap: 6px;
 }
 
 .weather-current__temp-nun {
   font-size: 180px;
   font-weight: 900;
+  line-height: 0.9;
 }
 
 .weather-current__temp-unit {
   font-size: 40px;
   font-weight: 900;
+  line-height: 1;
 }
 
 .weather-current__meta {
@@ -90,11 +96,15 @@
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
+  gap: 12px;
   margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
 .weather-current__meta-iten {
   margin: auto;
+  min-width: 120px;
+  text-align: center;
 }
 
 .weather-current__meta-text {
@@ -109,44 +119,162 @@
   font-weight: 600;
 }
 
-.weather-current__Sun{
+.weather-current__Sun {
   display: flex;
   margin-left: auto;
   margin-right: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
 }
 
-
-.weather-current__Sun-card{
-  padding: auto;
-  justify-items: center;
+.weather-current__Sun-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 180px;
   background-color: #ebebeb;
   border-radius: 18px;
   height: 90px;
-  margin-left: 10px;
 }
 
-.weather-current__Sun-text{
-  margin-top: 20px;
+.weather-current__Sun-text {
+  margin-top: 0;
   font-size: 20px;
   font-weight: 300;
 }
 
-.weather-current__Sun-time{
+.weather-current__Sun-time {
   font-size: 26px;
   font-weight: 900;
 }
 
-.weather-Current__title{
+.weather-Current__title {
   margin-top: 30px;
   font-size: 20px;
   font-weight: 900;
 }
 
-.weather-Current__charts{
-  
+.weather-Current__charts {
   margin-top: 30px;
   background-color: #f4f4f4;
   border-radius: 18px;
   height: 200px;
+}
+
+/* =========================
+   RESPONSIVO
+   ========================= */
+
+@media (max-width: 1024px) {
+  .weather-Current,
+  .weather-current--active {
+    width: 100%;
+    margin-left: 0;
+    height: auto;
+    min-height: calc(100dvh - 220px);
+  }
+
+  .weather-current__temp-nun {
+    font-size: 140px;
+  }
+
+  .weather-current__temp-unit {
+    font-size: 34px;
+  }
+
+  .weather-current__Sun-card {
+    width: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .weather-Current,
+  .weather-current--active {
+    width: 100%;
+    margin-left: 0;
+    height: auto;
+    min-height: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 16px;
+  }
+
+  .weather-current__container {
+    height: auto;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .weather-current__wrap-two {
+    align-items: flex-end;
+  }
+
+  .weather-current__weather,
+  .weather-current__location {
+    font-size: 18px;
+  }
+
+  .weather-current__temp {
+    margin-top: 22px;
+  }
+
+  .weather-current__temp-nun {
+    font-size: 108px;
+  }
+
+  .weather-current__temp-unit {
+    font-size: 28px;
+  }
+
+  .weather-current__meta {
+    margin-bottom: 22px;
+  }
+
+  .weather-current__meta-iten {
+    min-width: 100px;
+  }
+
+  .weather-current__Sun-card {
+    width: 100%;
+    max-width: 320px;
+    height: 86px;
+  }
+
+  .weather-Current__charts {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .weather-Current,
+  .weather-current--active {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .weather-current__image {
+    height: 42px;
+  }
+
+  .weather-current__temp-nun {
+    font-size: 92px;
+  }
+
+  .weather-current__temp-unit {
+    font-size: 24px;
+  }
+
+  .weather-current__meta-num {
+    font-size: 20px;
+  }
+
+  .weather-current__Sun-text {
+    font-size: 18px;
+  }
+
+  .weather-current__Sun-time {
+    font-size: 24px;
+  }
 }

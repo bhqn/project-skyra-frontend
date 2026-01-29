@@ -1,12 +1,14 @@
-import "./Register.css"
+import "./Register.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import "./Register.css"
-import RegisterImage from "../../assets/login-image.webp"
+import "./Register.css";
+import RegisterImage from "../../assets/login-image.webp";
 const Register = ({ handleRegistration }) => {
   const [data, setData] = useState({
+    username: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -37,6 +39,15 @@ const Register = ({ handleRegistration }) => {
         <h1 className="register__welcome">Inscreva-se</h1>
         <input
           className="register__input"
+          placeholder="Nome do usuário"
+          id="username"
+          name="username"
+          type="text"
+          value={data.username}
+          onChange={handleChange}
+        />
+        <input
+          className="register__input"
           placeholder="E-mail"
           id="email"
           name="email"
@@ -55,7 +66,6 @@ const Register = ({ handleRegistration }) => {
           onChange={handleChange}
         />
 
-        
         <input
           className="register__input register__input-confirm-password"
           placeholder="Confirmar senha"

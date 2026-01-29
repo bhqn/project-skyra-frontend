@@ -1,42 +1,51 @@
+/* Reset básico e layout base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+/* O root não deve “mandar” no layout do app */
 #root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Se você quiser um container padrão, use uma classe */
+.container {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 24px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Tablets */
+@media (max-width: 1024px) {
+  .container {
+    padding: 20px;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Mobile */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
   }
 }
 
-.card {
-  padding: 2em;
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
 }
 
-.read-the-docs {
-  color: #888;
-}
+/* Remove lixo do template (logo, spin, read-the-docs...) */
