@@ -17,6 +17,8 @@ function WeatherCurrent({ weather, forecast, capital, activeCityUf }) {
 
   const mapped = weather;
   const Icon = weatherIconMap[mapped.iconCode] || Ensolarado;
+  const isIconComponent = typeof Icon === "function" || typeof Icon === "object";
+
 
   return (
     <div className={`weather-Current ${
@@ -24,7 +26,11 @@ function WeatherCurrent({ weather, forecast, capital, activeCityUf }) {
       }`}>
       <div className="weather-current__container">
         <div className="weather-current__wrap-one">
-          <Icon className="weather-current__image" />
+          {isIconComponent ? (
+  <Icon className="weather-current__image" />
+) : (
+  <img src={Icon} className="weather-current__image" alt={mapped?.description || "Ícone do tempo"} />
+)}
           <div>
             <p className="weather-current__date">
               {getWeekDayShort()} {getDayAndMonth()}
