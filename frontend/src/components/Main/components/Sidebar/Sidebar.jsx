@@ -6,7 +6,7 @@ import ExitIcon from "../../../../assets/exit.svg?react";
 
 
 
-function Sidebar( {onOpenProfile }) {
+function Sidebar( {onOpenProfile, signOut }) {
   return (
     <section className="sidebar">
       <div className="sidebar__container">
@@ -23,7 +23,7 @@ function Sidebar( {onOpenProfile }) {
         </button>
 
         <button className="sidebar__button" aria-label="Exit">
-          <ExitIcon className="sidebar__icon" />
+          <ExitIcon className="sidebar__icon" onClick={signOut} />
         </button>
       </div>
     </section>

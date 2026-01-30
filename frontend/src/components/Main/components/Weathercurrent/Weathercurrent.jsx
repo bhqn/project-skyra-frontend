@@ -9,16 +9,17 @@ import {
   getWeekDayShort,
 } from "../../../../utils/date";
 import { weatherIconMap } from "../../../../utils/weatherMapIcon.js";
-import Ensolarado from "../../../../assets/Ensolarado.svg?react";
+import Ensolarado from "../../../../assets/pngs/ensolarado.png";
 
-function WeatherCurrent({ weather, forecast, capital, activeCityUf }) {
+function WeatherCurrent({ weather, forecast, capital, activeCityUf, selectedDay }) {
   if (!weather) return null;
+
+  const mapped = selectedDay || weather;
+  const temp = mapped.temp;
+  const description = mapped.description;
+  const iconCode = mapped.iconCode;
   const isActive = capital?.uf === activeCityUf;
-
-  const mapped = weather;
-  const Icon = weatherIconMap[mapped.iconCode] || Ensolarado;
-  const isIconComponent = typeof Icon === "function" || typeof Icon === "object";
-
+  const iconImage = weatherIconMap[mapped.iconCode] || Ensolarado;
 
   return (
     <div className={`weather-Current ${
@@ -26,16 +27,12 @@ function WeatherCurrent({ weather, forecast, capital, activeCityUf }) {
       }`}>
       <div className="weather-current__container">
         <div className="weather-current__wrap-one">
-          {isIconComponent ? (
-  <Icon className="weather-current__image" />
-) : (
-  <img src={Icon} className="weather-current__image" alt={mapped?.description || "Ícone do tempo"} />
-)}
+          <img src={iconImage} className="weather-current__image" alt={mapped?.description || "Ícone do tempo"} />
           <div>
             <p className="weather-current__date">
               {getWeekDayShort()} {getDayAndMonth()}
             </p>
-            <p className="weather-current__weather">{mapped.description}</p>
+            <p className="weather-current__weather">{description}</p>
           </div>
         </div>
 
@@ -46,7 +43,7 @@ function WeatherCurrent({ weather, forecast, capital, activeCityUf }) {
       </div>
 
       <div className="weather-current__temp">
-        <p className="weather-current__temp-nun">{mapped.temp}</p>
+        <p className="weather-current__temp-nun">{temp}</p>
         <p className="weather-current__temp-unit">°C</p>
       </div>
 

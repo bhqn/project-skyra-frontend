@@ -1,9 +1,7 @@
 import "./Forecast.css";
 import mapWeeklyForecast from "../../../../utils/mapWeeklyForecast";
-import React from "react";
 
-
-function Forecast({ forecast }) {
+function Forecast({ forecast, selectedDayKey, onSelectDay }) {
   if (!forecast) return null;
 
   const days = mapWeeklyForecast(forecast);
@@ -14,16 +12,33 @@ function Forecast({ forecast }) {
       <p className="forecast__title">Previsão da semana</p>
 
       <div className="forecast__card">
-        {days.map((day, index) => {
-          const Icon = day.Icon;
+        {days.map((day) => {
+          const iconSrc = day.Icon;
 
           return (
-            <div className="forecast__card-iten" key={index}>
+            <button
+              key={day.dayKey}
+              type="button"
+              onClick={() => onSelectDay?.(day.dayKey)}
+              className={
+                "forecast__card-iten" +
+                (day.dayKey === selectedDayKey
+                  ? " forecast__card-iten--active"
+                  : "")
+              }
+            >
               <p className="forecast__card-title">{day.name}</p>
-        {Icon ? React.createElement(Icon, { className: "forecast__card-image", alt: day.name }) : null}
 
-              <p className="forecast__card-temp">{day.temp}</p>
-            </div>
+              {iconSrc && (
+                <img
+                  src={iconSrc}
+                  className="forecast__card-image"
+                  alt={day.name}
+                />
+              )}
+
+              <p className="forecast__card-temp">{day.temp}°C</p>
+            </button>
           );
         })}
       </div>

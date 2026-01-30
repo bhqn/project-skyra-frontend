@@ -31,16 +31,19 @@
 }
 
 .forecast__card-iten {
-  padding-top: 30px;
-
+  padding-top: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+   border: none;
+  outline: none;
+  box-shadow: none;
 
   min-width: 180px;
-  height: 150px;
-
+  height: 180px;
   border-radius: 18px;
   background: #fff;
 
@@ -55,7 +58,8 @@
 }
 
 .forecast__card-image {
-  width: 120px;
+  margin: auto;
+  width: 60px;
   height: auto;
   display: block;
 }
@@ -69,6 +73,24 @@
 .forecast__card-iten:hover {
   transform: scale(1.08);
   z-index: 2;
+}
+
+/* estado ativo ao clicar */
+.forecast__card-iten:active {
+  background-color: #fbf5e8;
+}
+
+/* estado selecionado (recomendado usar via JS) */
+.forecast__card-iten--active {
+  outline: none;
+  background-color: #fbf5e8;
+  box-shadow: 0 0 0 2px rgba(251, 245, 232, 0.8) inset;
+}
+
+/* foco por teclado (acessibilidade) */
+.forecast__card-iten:focus-visible {
+  outline: none;
+  background-color: #fbf5e8;
 }
 
 /* =========================

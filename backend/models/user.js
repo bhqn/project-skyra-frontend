@@ -10,13 +10,7 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    required: true,
-    validate: {
-      validator(v) {
-        return /^https?:\/\/.+/.test(v);
-      },
-      message: "Link deve ser uma URL válida",
-    },
+    default: "https://i.imgur.com/1Q9Z1Zm.png",
   },
   email: {
     type: String,

@@ -1,11 +1,11 @@
 // src/utils/weatherIcons.js
-import Ensolarado from "../assets/Ensolarado.svg?react";
-import ParcialmenteNublado from "../assets/parcialmentenublado.svg?react";
-import Nublado from "../assets/nublado.svg?react";
-import Chuva from "../assets/chuva.svg?react";
-import Tempestade from "../assets/tempestade.svg?react";
-import Neve from "../assets/Neve.svg?react";
-import Luar from "../assets/luar.svg?react"
+import Ensolarado from "../assets/pngs/ensolarado.png";
+import ParcialmenteNublado from "../assets/pngs/parcialmentenublado.png";
+import Nublado from "../assets/pngs/nublado.png";
+import Chuva from "../assets/pngs/chuva.png";
+import Tempestade from "../assets/pngs/tempestade.png";
+import Neve from "../assets/pngs/neve.png";
+import Luar from "../assets/pngs/luar.png"
 
 
 export const weatherIconMap = {

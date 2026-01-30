@@ -1,7 +1,6 @@
 import Delete from "../../../../assets/delete.svg";
 import "./Cities.css";
 import { weatherIconMap } from "../../../../utils/weatherMapIcon";
-import React from "react";
 
 function Cities({
   cities = [],
@@ -47,10 +46,13 @@ function Cities({
               }}
             />
             <div className="cities__wrap">
-              {weatherIconMap[city.iconCode] &&
-                React.createElement(weatherIconMap[city.iconCode], {
-                  className: "cities__image",
-                })}
+              {weatherIconMap[city.iconCode] && (
+                <img
+                  src={weatherIconMap[city.iconCode]}
+                  className="cities__image"
+                  alt={city.description}
+                />
+              )}
               <div className="cities__content">
                 <p className="cities__name">
                   {city.nome}, {city.uf}

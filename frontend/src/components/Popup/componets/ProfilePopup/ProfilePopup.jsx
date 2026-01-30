@@ -13,9 +13,7 @@ export default function ProfilePopup({ onSubmit, values, onChange, onClose }) {
     // salvar username no contexto
     if (values?.username) {
       setProfile((prev) => {
-        const next = { ...prev, username: values.username };
-        localStorage.setItem("profile", JSON.stringify(next));
-        return next;
+        return { ...prev, username: values.username };
       });
     }
 
@@ -31,9 +29,7 @@ export default function ProfilePopup({ onSubmit, values, onChange, onClose }) {
     const reader = new FileReader();
     reader.onload = () => {
       setProfile((prev) => {
-        const next = { ...prev, avatar: reader.result };
-        localStorage.setItem("profile", JSON.stringify(next));
-        return next;
+        return { ...prev, avatar: reader.result };
       });
     };
     reader.readAsDataURL(file);

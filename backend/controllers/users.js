@@ -2,8 +2,6 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
-
 // GET /users - retorna todos os usuários
 module.exports.getUsers = (req, res, next) => {
   User.find({})
@@ -38,6 +36,12 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 module.exports.updateAvatar = (req, res, next) => {
+  const { avatar } = req.body;
+
+  if (!avatar) {
+    return res.status(400).send({ message: "Avatar é obrigatório" });
+  }
+
   User.findByIdAndUpdate(
     // ID do usuário
     req.user._id,
@@ -56,17 +60,37 @@ module.exports.updateAvatar = (req, res, next) => {
     .catch(next);
 };
 
-
 // POST /users - cria novo usuário
 module.exports.createUser = (req, res) => {
-  const { email, password, name, avatar } = req.body;
+  const { email, password, username } = req.body;
+
+  // Validações básicas
+  if (!email || !password || !username) {
+    return res.status(400).send({
+      message: "Email, senha e nome de usuário são obrigatórios",
+    });
+  }
+
+  if (username.length < 2 || username.length > 30) {
+    return res.status(400).send({
+      message: "Nome de usuário deve ter entre 2 e 30 caracteres",
+    });
+  }
+
+  if (password.length < 6) {
+    return res.status(400).send({
+      message: "Senha deve ter pelo menos 6 caracteres",
+    });
+  }
+
   bcrypt
     .hash(password, 10)
     .then((hash) => {
-      return User.create({ email, password: hash, name, avatar });
+      return User.create({ email, password: hash, name: username });
     })
     .then((user) => res.status(201).send({ data: user }))
-       .catch((err) => {
+    .catch((err) => {
+      console.log("CREATE USER ERROR:", err);
       //  Email duplicado
       if (err.code === 11000 && err.keyPattern?.email) {
         return res.status(409).send({
@@ -79,10 +103,7 @@ module.exports.createUser = (req, res) => {
         message: "Dados inválidos",
       });
     });
-
-    
 };
-
 
 //parte de login
 
@@ -129,11 +150,9 @@ module.exports.login = (req, res) => {
       }
 
       // 9 Trata qualquer outro erro interno do servidor
-      return res
-        .status(500)
-        .json({
-          message: "Erro interno do servidor",
-          error: err.message || err,
-        });
+      return res.status(500).json({
+        message: "Erro interno do servidor",
+        error: err.message || err,
+      });
     });
 };

@@ -1,11 +1,26 @@
 const express = require("express");
-const app = express();
-app.use(express.json());
+const cors = require("cors");
 
 const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
 const { createUser, login } = require("./controllers/users");
-const auth = require('./middleware/auth')
+const auth = require("./middleware/auth");
+
+const app = express();
+
+// CORS
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // Postman/curl
+    if (/^http:\/\/localhost:517\d$/.test(origin)) return callback(null, true);
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));// ✅ garante preflight
+app.use(express.json());
 
 // Rotas públicas
 app.post("/signup", createUser);
