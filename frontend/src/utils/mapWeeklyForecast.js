@@ -1,6 +1,4 @@
-import { weatherIconMap } from "./weatherMapIcon";
 
-// trabalha com forecast do endpoint /forecast (5 dias / 3h)
 export default function mapWeeklyForecast(forecast) {
   if (!forecast?.list?.length) return [];
 

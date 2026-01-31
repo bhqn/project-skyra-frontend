@@ -17,8 +17,8 @@ function Main({
   signOut,
   selectedDayKey,
   onSelectDay,
-  selectedDay, 
-  dailyForecast
+  selectedDay,
+  dailyForecast,
 }) {
   return (
     <main className="main">
@@ -34,9 +34,9 @@ function Main({
 
       <div className="main__wrap">
         <Forecast
-days={dailyForecast}
-  selectedDayKey={selectedDayKey}
-  onSelectDay={onSelectDay}
+          days={dailyForecast}
+          selectedDayKey={selectedDayKey}
+          onSelectDay={onSelectDay}
         />
 
         <Cities
