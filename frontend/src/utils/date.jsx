@@ -1,10 +1,9 @@
   //Nascer e por do sol
- export  function formatTime(unix){
-    return new Date(unix * 1000).toLocaleTimeString("pt-BR",{
-      hour: "2-digit",
-      minute: "2-digit",
-    })
-  }
+export function formatTime(unixSeconds) {
+  if (!unixSeconds) return "--";
+  const d = new Date(unixSeconds * 1000); // <- seconds -> ms
+  return d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+}
 
 //hora atual
   export function getCurrentHour() {
