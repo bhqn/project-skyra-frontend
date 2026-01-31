@@ -75,7 +75,9 @@ function App() {
   const closePopup = () => setIsOpen(false);
 
   // cidade: seleciona capital
-  const selectCapital = (selected) => setCapital(selected);
+  const selectCapital = (selected) => {
+     setActiveCityUf(null);  
+    setCapital(selected);}
 
   // auth: limpa sessão local
   const clearSession = () => {
