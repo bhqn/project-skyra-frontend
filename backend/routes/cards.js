@@ -1,17 +1,8 @@
-const express = require("express");
-const auth = require("../middleware/auth");
-const router = express.Router();
-const {
-  getCards,
-  createCard,
-  deleteCard,
+const router = require("express").Router();
+const { createCard, getCards, deleteCard } = require("../controllers/cards");
 
-} = require("../controllers/cards");
-
-// Apenas estas rotas conectadas aos controllers
-router.get("/", auth, getCards);
-router.post("/", auth, createCard);
-router.delete("/:cardId", auth, deleteCard);
-
+router.get("/", getCards);
+router.post("/", createCard);
+router.delete("/:cardId", deleteCard);
 
 module.exports = router;

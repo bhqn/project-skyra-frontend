@@ -2,41 +2,22 @@ const mongoose = require("mongoose");
 
 const cardSchema = new mongoose.Schema(
   {
-    owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // CONFIRA se bate com seu model
-      required: true,
-    },
-    city: {
-      type: String,
-      required: true,
-      minlength: 2,
-      maxlength: 30,
-      trim: true,
-    },
-    uf: {
-      type: String,
-      required: true,
-      minlength: 2,
-      maxlength: 2,
-      uppercase: true,
-    },
-    lat: {
-      type: Number,
-      required: true,
-      min: -90,
-      max: 90,
-    },
-    lon: {
-      type: Number,
-      required: true,
-      min: -180,
-      max: 180,
-    },
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
+
+    // seu “card de cidade”
+    uf: { type: String, required: true },
+    nome: { type: String, required: true },
+    lat: { type: Number, required: true },
+    lon: { type: Number, required: true },
+
+    temp: Number,
+    description: String,
+    iconCode: String,
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-module.exports = mongoose.model("Card", cardSchema);
+// evita duplicar a mesma UF para o mesmo usuário
+cardSchema.index({ owner: 1, uf: 1 }, { unique: true });
+
+module.exports = mongoose.model("card", cardSchema);

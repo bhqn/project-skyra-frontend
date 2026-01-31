@@ -11,6 +11,7 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import * as auth from "../../utils/auth";
+import * as cardsApi from "../../utils/cardsApi";
 
 function App() {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ function App() {
   // estado: cidades
   const [savedCities, setSavedCities] = useState([]);
   const [activeCityUf, setActiveCityUf] = useState(null);
+  
 
   // estado: cidade atual
   const [capital, setCapital] = useState({
@@ -91,33 +93,44 @@ function App() {
   };
 
   // cidades: adiciona cidade salva
-  const addSavedCity = (capitalData, weatherData) => {
-    setSavedCities((prev) => {
-      const exists = prev.some((c) => c.uf === capitalData.uf);
-      if (exists) return prev;
+ const addSavedCity = (capitalData, weatherData) => {
+  // evita duplicar na UI enquanto o backend responde
+  const exists = savedCities.some((c) => c.uf === capitalData.uf);
+  if (exists) return;
 
-      return [
-        ...prev,
-        {
-          uf: capitalData.uf,
-          nome: capitalData.nome,
-          estado: capitalData.estado,
-          temp: weatherData.temp,
-          description: weatherData.description,
-          iconCode: weatherData.iconCode,
-          lat: capitalData.lat,
-          lon: capitalData.lon,
-        },
-      ];
+  cardsApi
+    .createCard({
+      uf: capitalData.uf,
+      nome: capitalData.nome,
+      estado: capitalData.estado,
+      lat: capitalData.lat,
+      lon: capitalData.lon,
+      temp: weatherData.temp,
+      description: weatherData.description,
+      iconCode: weatherData.iconCode,
+    })
+    .then((res) => {
+      // dependendo do backend
+      const card = res?.data?.data ?? res?.data;
+
+      setSavedCities((prev) => [...prev, card]);
+      setActiveCityUf(card.uf);
+    })
+    .catch((err) => {
+      console.error("❌ Erro ao salvar card:", err);
     });
+};
 
-    setActiveCityUf(capitalData.uf);
-  };
 
   // cidades: remove cidade salva
-  const removeSavedCity = (uf) => {
-    setSavedCities((prev) => prev.filter((city) => city.uf !== uf));
-  };
+const removeSavedCity = (cardId) => {
+  cardsApi
+    .deleteCard(cardId)
+    .then(() => {
+      setSavedCities((prev) => prev.filter((c) => c._id !== cardId));
+    })
+    .catch((err) => console.error(err));
+};
 
   // cidades: seleciona cidade salva
   const selectSavedCity = (city) => {
@@ -211,7 +224,12 @@ function App() {
       .then((user) => {
         setCurrentUser(user?.data || user);
         setIsLoggedIn(true);
+
+        return cardsApi.getCards();
       })
+      .then((res) => {
+  setSavedCities(res.data); // vem do Mongo agora
+})
       .catch(() => {
         clearSession();
       })

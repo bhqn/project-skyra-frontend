@@ -3,12 +3,13 @@ const cors = require("cors");
 
 const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
+
 const { createUser, login } = require("./controllers/users");
 const auth = require("./middleware/auth");
 
 const app = express();
 
-// CORS
+
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin) return callback(null, true); // Postman/curl
@@ -16,10 +17,12 @@ const corsOptions = {
     return callback(new Error("Not allowed by CORS"));
   },
   credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsOptions));
-app.options(/.*/, cors(corsOptions));// ✅ garante preflight
+
 app.use(express.json());
 
 // Rotas públicas
