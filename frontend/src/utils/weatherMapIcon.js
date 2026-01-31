@@ -1,5 +1,5 @@
 // src/utils/weatherIcons.js
-import Ensolarado from "../assets/pngs/ensolarado.png";
+import Ensolarado from "../assets/pngs/sunny.png";
 import ParcialmenteNublado from "../assets/pngs/parcialmentenublado.png";
 import Nublado from "../assets/pngs/nublado.png";
 import Chuva from "../assets/pngs/chuva.png";

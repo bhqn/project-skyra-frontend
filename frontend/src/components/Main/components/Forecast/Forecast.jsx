@@ -1,11 +1,8 @@
 import "./Forecast.css";
-import mapWeeklyForecast from "../../../../utils/mapWeeklyForecast";
 import { weatherIconMap } from "../../../../utils/weatherMapIcon";
+import Ensolarado from "../../../../assets/pngs/ensolarado.png";
 
-function Forecast({ forecast, selectedDayKey, onSelectDay }) {
-  if (!forecast) return null;
-
-  const days = mapWeeklyForecast(forecast);
+function Forecast({ days = [], selectedDayKey, onSelectDay }) {
   if (!days.length) return null;
 
   return (
@@ -14,13 +11,24 @@ function Forecast({ forecast, selectedDayKey, onSelectDay }) {
 
       <div className="forecast__card">
         {days.map((day) => {
-          const iconSrc = weatherIconMap[day.iconCode];
+          const iconSrc = weatherIconMap[day.iconCode] || Ensolarado;
+
+          // Se você já manda day.name pronto, usa ele.
+          // Se não mandar, calcula pelo dayKey:
+          const dayName =
+            day.name ||
+            new Date(day.dayKey).toLocaleDateString("pt-BR", {
+              weekday: "short",
+            });
 
           return (
             <button
               key={day.dayKey}
               type="button"
-              onClick={() => onSelectDay?.(day.dayKey)}
+              onClick={() => {
+                console.log("clicou dayKey:", day.dayKey);
+                onSelectDay?.(day.dayKey);
+              }}
               className={
                 "forecast__card-iten" +
                 (day.dayKey === selectedDayKey
@@ -28,15 +36,14 @@ function Forecast({ forecast, selectedDayKey, onSelectDay }) {
                   : "")
               }
             >
-              <p className="forecast__card-title">{day.name}</p>
+              <p className="forecast__card-title">{dayName}</p>
 
-              {iconSrc && (
-                <img
-                  src={iconSrc}
-                  className="forecast__card-image"
-                  alt={day.description}
-                />
-              )}
+              <img
+                src={iconSrc}
+                className="forecast__card-image"
+                alt={day.description || dayName}
+                draggable="false"
+              />
 
               <p className="forecast__card-temp">{day.temp}°C</p>
             </button>

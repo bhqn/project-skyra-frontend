@@ -2,10 +2,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import "../../index.css";
 import { useEffect, useMemo, useState } from "react";
-import {
-  getWeatherByCoords,
-  getForecastByCoords,
-} from "../../utils/weatherApi";
+import { getWeatherByCoords, getForecastByCoords } from "../../utils/weatherApi";
 import Loader from "../Loader/Loader";
 import { mapWeather } from "../../utils/mapWeather";
 import Popup from "../Popup/Popup";
@@ -44,10 +41,13 @@ function App() {
     lon: -43.1729,
   });
 
+  // dia: seleciona o dia
+  const [selectedDayKey, setSelectedDayKey] = useState(null);
+
   // dados: userData
   const userData = useMemo(
     () => ({ username: currentUser?.name || currentUser?.email || "Usuário" }),
-    [currentUser],
+    [currentUser]
   );
 
   // id do usuário (p/ persistência por usuário)
@@ -59,7 +59,7 @@ function App() {
     return {
       savedCities: `savedCities_${userId}`,
       activeCityUf: `activeCityUf_${userId}`,
-      profile: `profile_${userId}`, // se precisar depois
+      profile: `profile_${userId}`,
     };
   }, [userId]);
 
@@ -130,9 +130,7 @@ function App() {
     setActiveCityUf(city.uf);
   };
 
-  // dia: seleciona o dia
-  const [selectedDayKey, setSelectedDayKey] = useState(null);
-
+  // ===== forecast -> dailyForecast =====
   function buildDailyForecast(forecastData) {
     if (!forecastData?.list) return [];
 
@@ -144,7 +142,6 @@ function App() {
       byDay.get(day).push(item);
     }
 
-    // pega 1 item representativo por dia (ex: mais perto de 12:00)
     const days = [];
     for (const [day, items] of byDay.entries()) {
       const pick =
@@ -160,10 +157,15 @@ function App() {
       });
     }
 
-    return days.slice(0, 5); // OpenWeather free geralmente 5 dias
+    return days.slice(0, 5);
   }
-  const dailyForecast = buildDailyForecast(forecast);
 
+  const dailyForecast = useMemo(() => buildDailyForecast(forecast), [forecast]);
+
+  const selectedDay = useMemo(() => {
+    if (!selectedDayKey) return null;
+    return dailyForecast.find((d) => d.dayKey === selectedDayKey) || null;
+  }, [dailyForecast, selectedDayKey]);
 
   // auth: valida token + carrega usuário
   const fetchMe = (token) =>
@@ -216,12 +218,24 @@ function App() {
       .finally(() => setCheckingAuth(false));
   }, []);
 
+  // seleciona automaticamente o primeiro dia, mas SEM sobrescrever clique
+  useEffect(() => {
+    if (!dailyForecast.length) return;
+
+    const stillExists = selectedDayKey
+      ? dailyForecast.some((d) => d.dayKey === selectedDayKey)
+      : false;
+
+    if (!selectedDayKey || !stillExists) {
+      setSelectedDayKey(dailyForecast[0].dayKey);
+    }
+  }, [dailyForecast, selectedDayKey]);
+
   // persistência: carrega dados por usuário ao trocar userId
   useEffect(() => {
     if (!storageKeys) return;
 
     try {
-      // migra keys antigas (globais) -> por usuário
       const legacyCities = localStorage.getItem("savedCities");
       if (!localStorage.getItem(storageKeys.savedCities) && legacyCities) {
         localStorage.setItem(storageKeys.savedCities, legacyCities);
@@ -261,7 +275,6 @@ function App() {
 
   // ===== handlers: auth =====
 
-  // auth: login
   const handleLogin = ({ email, password }) => {
     if (!email || !password) return;
 
@@ -285,7 +298,6 @@ function App() {
       });
   };
 
-  // auth: registro
   const handleRegistration = (data) => {
     auth
       .register(data)
@@ -299,6 +311,7 @@ function App() {
       });
   };
 
+  // ✅ return condicional DEPOIS de todos hooks
   if (checkingAuth) return <Loader />;
 
   return (
@@ -340,22 +353,23 @@ function App() {
               {error && <p>{error}</p>}
 
               {!loading && weather && forecast && (
-               <Main
-  weather={weather}
-  forecast={forecast}
-  dailyForecast={dailyForecast}
-  selectedDayKey={selectedDayKey}
-  onSelectDay={setSelectedDayKey}
-  savedCities={savedCities}
-  onAddCity={addSavedCity}
-  onRemoveCity={removeSavedCity}
-  onSelectCity={selectSavedCity}
-  capital={capital}
-  setActiveCityUf={setActiveCityUf}
-  activeCityUf={activeCityUf}
-  onOpen={openPopup}
-  signOut={signOut}
-/>
+                <Main
+                  weather={weather}
+                  forecast={forecast}
+                  dailyForecast={dailyForecast}
+                  selectedDayKey={selectedDayKey}
+                  onSelectDay={setSelectedDayKey}
+                  selectedDay={selectedDay}
+                  savedCities={savedCities}
+                  onAddCity={addSavedCity}
+                  onRemoveCity={removeSavedCity}
+                  onSelectCity={selectSavedCity}
+                  capital={capital}
+                  setActiveCityUf={setActiveCityUf}
+                  activeCityUf={activeCityUf}
+                  onOpen={openPopup}
+                  signOut={signOut}
+                />
               )}
 
               {isOpen && <Popup isOpen={isOpen} onClose={closePopup} />}
@@ -369,4 +383,5 @@ function App() {
     </Routes>
   );
 }
+
 export default App;
