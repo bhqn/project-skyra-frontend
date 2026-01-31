@@ -1,5 +1,6 @@
 import "./Forecast.css";
 import mapWeeklyForecast from "../../../../utils/mapWeeklyForecast";
+import { weatherIconMap } from "../../../../utils/weatherMapIcon";
 
 function Forecast({ forecast, selectedDayKey, onSelectDay }) {
   if (!forecast) return null;
@@ -13,7 +14,7 @@ function Forecast({ forecast, selectedDayKey, onSelectDay }) {
 
       <div className="forecast__card">
         {days.map((day) => {
-          const iconSrc = day.Icon;
+          const iconSrc = weatherIconMap[day.iconCode];
 
           return (
             <button
@@ -33,7 +34,7 @@ function Forecast({ forecast, selectedDayKey, onSelectDay }) {
                 <img
                   src={iconSrc}
                   className="forecast__card-image"
-                  alt={day.name}
+                  alt={day.description}
                 />
               )}
 
