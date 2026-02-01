@@ -7,6 +7,8 @@ export default function ProfilePopup({ onSubmit, values, onChange, onClose }) {
   const { profile, setProfile } = useContext(ProfileContext);
   const fileRef = useRef(null);
 
+  
+
   function handleSubmit(e) {
     e.preventDefault();
 

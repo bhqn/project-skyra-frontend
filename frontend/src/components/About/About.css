@@ -1,0 +1,144 @@
+
+
+.about {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0;
+  overflow-x: hidden;
+  background: #fff;
+}
+
+
+.about__image {
+  width: min(461px, 40vw);
+  height: 100vh;
+  object-fit: cover;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.about__card {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  width: 100%;
+}
+
+
+.about__content {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.about__title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 18px;
+  color: #1f1f1f;
+  letter-spacing: 0.06em;
+}
+
+
+.about__text {
+  width: 100%;
+  max-width: 420px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #1f1f1f;
+  margin: 0 0 14px;
+}
+
+
+.about__content {
+  padding: 24px 22px;
+
+  
+}
+
+
+.about .sidebar {
+  height: 100vh;          
+  display: flex;
+  align-items: flex-end; 
+}
+
+
+.about .sidebar__container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px 16px;     
+  gap: 18px;
+}
+
+/* =========================
+   RESPONSIVO
+   ========================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .about__image {
+    width: min(360px, 38vw);
+  }
+
+  .about__card {
+    padding: 28px;
+  }
+
+  .about__title {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+
+  .about__content {
+    padding: 22px 18px;
+  }
+}
+
+/* Mobile: vira 1 coluna e some a imagem (igual seu login) */
+@media (max-width: 768px) {
+  .about {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about__image {
+    display: none;
+  }
+
+  .about__card {
+    max-width: 420px;
+    padding: 22px 16px;
+    min-height: 100vh;
+  }
+
+  .about__title {
+    font-size: 26px;
+  }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+  .about__card {
+    padding: 18px 12px;
+  }
+
+  .about__title {
+    font-size: 22px;
+  }
+
+  .about__text {
+    max-width: 100%;
+  }
+}

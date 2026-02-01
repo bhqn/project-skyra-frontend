@@ -2,7 +2,10 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import "../../index.css";
 import { useEffect, useMemo, useState } from "react";
-import { getWeatherByCoords, getForecastByCoords } from "../../utils/weatherApi";
+import {
+  getWeatherByCoords,
+  getForecastByCoords,
+} from "../../utils/weatherApi";
 import Loader from "../Loader/Loader";
 import { mapWeather } from "../../utils/mapWeather";
 import Popup from "../Popup/Popup";
@@ -12,6 +15,7 @@ import Register from "../Register/Register";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import * as auth from "../../utils/auth";
 import * as cardsApi from "../../utils/cardsApi";
+import About from "../About/About";
 
 function App() {
   const navigate = useNavigate();
@@ -33,7 +37,6 @@ function App() {
   // estado: cidades
   const [savedCities, setSavedCities] = useState([]);
   const [activeCityUf, setActiveCityUf] = useState(null);
-  
 
   // estado: cidade atual
   const [capital, setCapital] = useState({
@@ -49,7 +52,7 @@ function App() {
   // dados: userData
   const userData = useMemo(
     () => ({ username: currentUser?.name || currentUser?.email || "Usuário" }),
-    [currentUser]
+    [currentUser],
   );
 
   // id do usuário (p/ persistência por usuário)
@@ -76,8 +79,9 @@ function App() {
 
   // cidade: seleciona capital
   const selectCapital = (selected) => {
-     setActiveCityUf(null);  
-    setCapital(selected);}
+    setActiveCityUf(null);
+    setCapital(selected);
+  };
 
   // auth: limpa sessão local
   const clearSession = () => {
@@ -95,44 +99,43 @@ function App() {
   };
 
   // cidades: adiciona cidade salva
- const addSavedCity = (capitalData, weatherData) => {
-  // evita duplicar na UI enquanto o backend responde
-  const exists = savedCities.some((c) => c.uf === capitalData.uf);
-  if (exists) return;
+  const addSavedCity = (capitalData, weatherData) => {
+    // evita duplicar na UI enquanto o backend responde
+    const exists = savedCities.some((c) => c.uf === capitalData.uf);
+    if (exists) return;
 
-  cardsApi
-    .createCard({
-      uf: capitalData.uf,
-      nome: capitalData.nome,
-      estado: capitalData.estado,
-      lat: capitalData.lat,
-      lon: capitalData.lon,
-      temp: weatherData.temp,
-      description: weatherData.description,
-      iconCode: weatherData.iconCode,
-    })
-    .then((res) => {
-      // dependendo do backend
-      const card = res?.data?.data ?? res?.data;
+    cardsApi
+      .createCard({
+        uf: capitalData.uf,
+        nome: capitalData.nome,
+        estado: capitalData.estado,
+        lat: capitalData.lat,
+        lon: capitalData.lon,
+        temp: weatherData.temp,
+        description: weatherData.description,
+        iconCode: weatherData.iconCode,
+      })
+      .then((res) => {
+        // dependendo do backend
+        const card = res?.data?.data ?? res?.data;
 
-      setSavedCities((prev) => [...prev, card]);
-      setActiveCityUf(card.uf);
-    })
-    .catch((err) => {
-      console.error("❌ Erro ao salvar card:", err);
-    });
-};
-
+        setSavedCities((prev) => [...prev, card]);
+        setActiveCityUf(card.uf);
+      })
+      .catch((err) => {
+        console.error("❌ Erro ao salvar card:", err);
+      });
+  };
 
   // cidades: remove cidade salva
-const removeSavedCity = (cardId) => {
-  cardsApi
-    .deleteCard(cardId)
-    .then(() => {
-      setSavedCities((prev) => prev.filter((c) => c._id !== cardId));
-    })
-    .catch((err) => console.error(err));
-};
+  const removeSavedCity = (cardId) => {
+    cardsApi
+      .deleteCard(cardId)
+      .then(() => {
+        setSavedCities((prev) => prev.filter((c) => c._id !== cardId));
+      })
+      .catch((err) => console.error(err));
+  };
 
   // cidades: seleciona cidade salva
   const selectSavedCity = (city) => {
@@ -230,8 +233,8 @@ const removeSavedCity = (cardId) => {
         return cardsApi.getCards();
       })
       .then((res) => {
-  setSavedCities(res.data); // vem do Mongo agora
-})
+        setSavedCities(res.data); // vem do Mongo agora
+      })
       .catch(() => {
         clearSession();
       })
@@ -333,6 +336,7 @@ const removeSavedCity = (cardId) => {
 
   // ✅ return condicional DEPOIS de todos hooks
   if (checkingAuth) return <Loader />;
+  
 
   return (
     <Routes>
@@ -394,6 +398,18 @@ const removeSavedCity = (cardId) => {
 
               {isOpen && <Popup isOpen={isOpen} onClose={closePopup} />}
             </ProfileProvider>
+          )
+        }
+      />
+
+      {/* ABOUT */}
+      <Route 
+        path="/about"
+        element={
+          !isLoggedIn ? (
+            <Navigate to="/login" replace />
+          ) : (
+            <About onOpen={openPopup} signOut={signOut} />
           )
         }
       />

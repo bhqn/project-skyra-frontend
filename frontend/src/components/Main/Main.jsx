@@ -4,6 +4,7 @@ import WeatherCurrent from "./components/Weathercurrent/Weathercurrent";
 import Forecast from "./components/Forecast/Forecast";
 import Cities from "./components/Cities/Cities";
 
+
 function Main({
   weather,
   forecast,
