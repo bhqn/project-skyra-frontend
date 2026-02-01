@@ -18,7 +18,7 @@ function Forecast({ days = [], selectedDayKey, onSelectDay }) {
           const dayName =
             day.name ||
             new Date(day.dayKey).toLocaleDateString("pt-BR", {
-              weekday: "short",
+              weekday: "long",
             });
 
           return (
