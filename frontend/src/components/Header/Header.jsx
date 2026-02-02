@@ -1,12 +1,16 @@
 import { useContext } from "react";
 import { ProfileContext } from "../../context/ProfileContext";
 import "./Header.css";
-import userImage from "../../assets/usericon.svg";
+import userImage from "../../assets/usericon.jpg";
 import SearchIcon from "../../assets/Search.svg";
 import CapitalAutocomplete from "../AutoComplete/CapitalAutocomplete";
 
 function Header({ onSelectCapital }) {
   const { profile } = useContext(ProfileContext);
+
+  console.log("profileKey user:", profile);
+console.log("localStorage profile:", localStorage.getItem("profile"));
+console.log("localStorage profile_user:", localStorage.getItem(`profile_${profile?._id}`));
 
   return (
     <header className="header">

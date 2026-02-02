@@ -1,7 +1,7 @@
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import "../../index.css";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useContext  } from "react";
 import {
   getWeatherByCoords,
   getForecastByCoords,
@@ -16,7 +16,11 @@ import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import * as auth from "../../utils/auth";
 import * as cardsApi from "../../utils/cardsApi";
 import About from "../About/About";
+import { ProfileContext } from "../../context/ProfileContext";
+
+
 const BASE_URL = "https://project-skyra-backend.onrender.com";
+
 
 function App() {
   const navigate = useNavigate();
@@ -308,7 +312,7 @@ function App() {
   }, [activeCityUf, storageKeys]);
 
   // ===== handlers: auth =====
-
+ const { setProfile } = useContext(ProfileContext);
   const handleLogin = ({ email, password }) => {
     if (!email || !password) {
       return Promise.reject("Preencha e-mail e senha");
@@ -326,6 +330,13 @@ function App() {
         return fetchMe(token);
       })
       .then((user) => {
+        const u = user?.data || user;
+
+         setProfile({
+          username: u.username || u.name || "",
+          
+        });
+        
         setCurrentUser(user?.data || user);
         setIsLoggedIn(true);
         navigate("/", { replace: true });

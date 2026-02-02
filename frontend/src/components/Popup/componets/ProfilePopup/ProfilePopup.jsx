@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react";
 import "./ProfilePopup.css";
 import { ProfileContext } from "../../../../context/ProfileContext";
-import userImage from "../../../../assets/usericon.svg";
+import userImage from "../../../../assets/usericon.jpg";
 
 export default function ProfilePopup({ onSubmit, values, onChange, onClose }) {
   const { profile, setProfile } = useContext(ProfileContext);
