@@ -1,0 +1,43 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Diretório de dependências
+backend/node_modules/*
+frontend/node_modules/*
+info.txt
+
+# Diretório de cache npm opcional
+.npm
+
+# Arquivos do sistema e pastas de configurações IDE
+.DS_Store
+.idea
+.vscode
+.env
+
+
+# Logs
+
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+
+dist
+dist-ssr
+*.local
+*.env
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

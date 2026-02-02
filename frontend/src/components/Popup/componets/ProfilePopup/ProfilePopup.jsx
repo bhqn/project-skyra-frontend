@@ -75,23 +75,7 @@ export default function ProfilePopup({ onSubmit, values, onChange, onClose }) {
           onChange={onChange}
         />
 
-        <input
-          className="profilePopup__input"
-          name="password"
-          type="password"
-          placeholder="Alterar senha"
-          value={values?.password ?? ""}
-          onChange={onChange}
-        />
 
-        <input
-          className="profilePopup__input"
-          name="confirmPassword"
-          type="password"
-          placeholder="Confirmar senha"
-          value={values?.confirmPassword ?? ""}
-          onChange={onChange}
-        />
 
         <button className="profilePopup__btn" type="submit">
           Clique aqui!
