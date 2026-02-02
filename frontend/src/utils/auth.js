@@ -1,5 +1,17 @@
 
 export const BASE_URL = "http://localhost:3000";
+
+const handleResponse = async (res) => {
+  const data = await res.json().catch(() => ({}));
+
+  if (res.ok) return data;
+
+  // aqui pega a mensagem real do back
+  const message = data?.message || `Erro: ${res.status}`;
+  return Promise.reject(message);
+};
+
+
 export const register = ({ email, password, username }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
@@ -25,12 +37,12 @@ export const authorize = ({ email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    return res.ok
-      ? res.json()
-      : Promise.reject(
-          `Error: ${res.status} um dos campos foi preenchido incorretamente`
-        );
+  }).then(async (res) => {
+    const data = await res.json().catch(() => ({}));
+
+    if (res.ok) return data;
+
+    return Promise.reject(data?.message || `Error: ${res.status}`);
   });
 };
 

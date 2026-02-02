@@ -298,28 +298,28 @@ function App() {
 
   // ===== handlers: auth =====
 
-  const handleLogin = ({ email, password }) => {
-    if (!email || !password) return;
+const handleLogin = ({ email, password }) => {
+  if (!email || !password) {
+    return Promise.reject("Preencha e-mail e senha");
+  }
 
-    auth
-      .authorize({ email, password })
-      .then((data) => {
-        const token = data?.token || data?.jwt;
-        if (!token) throw new Error("Token não retornado");
+  return auth
+    .authorize({ email, password })
+    .then((data) => {
+      const token = data?.token || data?.jwt;
+      if (!token) {
+        return Promise.reject("Token não retornado");
+      }
 
-        localStorage.setItem("jwt", token);
-        return fetchMe(token);
-      })
-      .then((user) => {
-        setCurrentUser(user?.data || user);
-        setIsLoggedIn(true);
-        navigate("/", { replace: true });
-      })
-      .catch((err) => {
-        console.error("❌ Erro no login:", err);
-        notify("error", "Falha no login");
-      });
-  };
+      localStorage.setItem("jwt", token);
+      return fetchMe(token);
+    })
+    .then((user) => {
+      setCurrentUser(user?.data || user);
+      setIsLoggedIn(true);
+      navigate("/", { replace: true });
+    });
+};
 
   const handleRegistration = (data) => {
     auth
@@ -336,7 +336,6 @@ function App() {
 
   // ✅ return condicional DEPOIS de todos hooks
   if (checkingAuth) return <Loader />;
-  
 
   return (
     <Routes>
@@ -403,7 +402,7 @@ function App() {
       />
 
       {/* ABOUT */}
-      <Route 
+      <Route
         path="/about"
         element={
           !isLoggedIn ? (

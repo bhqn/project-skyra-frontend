@@ -8,6 +8,16 @@
   overflow-x: hidden;
 }
 
+.login__error {
+  position: relative;
+  top: 15;
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-top: 2px;
+  display: block;
+  margin-bottom: 15px;
+}
+
 /* imagem: desktop/tablet */
 .Login__img {
   width: min(461px, 40vw);

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import LoginImage from "../../assets/login-image.webp"
 import "./Login.css"
-const Login = ({handleLogin}) => {
-  
+const Login = ({handleLogin }) => {
+   const [loginError, setLoginError] = useState("");
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -17,10 +17,15 @@ const Login = ({handleLogin}) => {
     }));
   };
 
-   const handleSubmit = (e) => {
-    e.preventDefault();
-    handleLogin(data);
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  setLoginError("");
+
+  handleLogin(data)
+    .catch((message) => {
+      setLoginError(message);
+    });
+};
 
   
   return (
@@ -37,6 +42,9 @@ const Login = ({handleLogin}) => {
           value={data.email}
           onChange={handleChange}
         />
+   {loginError && (
+  <span className="login__error">{loginError}</span>
+)}
 
         <input
           className="login__input login__input-password"
