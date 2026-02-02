@@ -2,6 +2,8 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const app = require("./app");
 
+console.log("### server.js LOADED ###");
+
 // Conexão MongoDB
 const MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI, {
