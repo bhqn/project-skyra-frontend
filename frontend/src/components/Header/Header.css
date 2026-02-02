@@ -5,16 +5,19 @@
   align-items: center;
   margin-bottom: 10px;
 
-  /* remove altura fixa (responsivo) */
   height: auto;
   min-height: 64px;
 }
+
+
 .header__avatar-container {
   width: 64px;
   height: 64px;
+  flex: 0 0 64px;         
   border-radius: 50%;
   overflow: hidden;
   margin-right: 20px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,6 +29,8 @@
   object-fit: cover;
   display: block;
 }
+
+
 
 .header__container {
   width: 100%;
@@ -72,9 +77,7 @@
   border: none;
 }
 
-/* =========================
-   RESPONSIVO
-   ========================= */
+
 
 /* Tablet */
 @media (max-width: 1024px) {
@@ -83,8 +86,10 @@
     padding: 0 20px;
   }
 
-  .header__avatar {
-    margin-left: 0;
+  .header__avatar-container {
+    width: 56px;
+    height: 56px;
+    flex: 0 0 56px;
     margin-right: 16px;
   }
 
@@ -103,7 +108,7 @@
   }
 }
 
-/* Mobile: quebra em 2 linhas (topo: user, baixo: search) */
+/* Mobile */
 @media (max-width: 768px) {
   .header {
     margin-top: 14px;
@@ -115,7 +120,13 @@
     gap: 12px;
   }
 
-  /* bloco do usuário não espremido */
+  .header__avatar-container {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    margin-right: 14px;
+  }
+
   .header__text {
     font-size: 14px;
   }
@@ -124,8 +135,6 @@
     font-size: 20px;
   }
 
- 
-  /* search vira linha inteira */
   .header__search {
     order: 3;
     margin-left: 0;
@@ -146,6 +155,13 @@
 @media (max-width: 480px) {
   .header {
     padding: 0 12px;
+  }
+
+  .header__avatar-container {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    margin-right: 12px;
   }
 
   .header__username {
