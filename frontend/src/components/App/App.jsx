@@ -187,10 +187,20 @@ function App() {
   }, [dailyForecast, selectedDayKey]);
 
   // auth: valida token + carrega usuário
-  const fetchMe = (token) =>
-    fetch("BASE_URL/users/me", {
-      headers: { Authorization: `Bearer ${token}` },
-    }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+ const fetchMe = (token) =>
+  fetch(`${BASE_URL}/users/me`, {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then(async (res) => {
+    const contentType = res.headers.get("content-type") || "";
+    const isJson = contentType.includes("application/json");
+
+    const data = isJson ? await res.json().catch(() => ({})) : null;
+    const text = !isJson ? await res.text().catch(() => "") : "";
+
+    if (res.ok) return data;
+
+    return Promise.reject(data?.message || text || `Erro ${res.status}`);
+  });
 
   // ===== efeitos =====
 
