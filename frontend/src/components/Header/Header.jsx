@@ -10,7 +10,9 @@ function Header({ onSelectCapital }) {
 
   return (
     <header className="header">
+      <div className="header__avatar-container">
       <img className="header__avatar" src={profile?.avatar || userImage} alt="logo around" />
+      </div>
       <div className="header__container">
         <div className="header__container_text">
           <p className="header__text">Olá,</p>
