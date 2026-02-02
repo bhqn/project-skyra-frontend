@@ -8,6 +8,8 @@ const { createUser, login } = require("./controllers/users");
 const auth = require("./middleware/auth");
 
 const app = express();
+console.log("### app.js LOADED - version: NO app.options * ###");
+
 
 
 
@@ -35,6 +37,8 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
+
+app.options(/.*/, cors(corsOptions));
 // CORS SEMPRE antes de qualquer rota
 app.use(cors(corsOptions));
 
