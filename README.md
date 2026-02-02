@@ -1,5 +1,6 @@
 # 🌤️ Skyra
 
+link do projeto: https://project-skyra-frontend-p1y1.vercel.app/
 Skyra é uma aplicação web de previsão do tempo desenvolvida como **projeto final do curso da TripleTen**.  
 O projeto integra **frontend em React** com **backend em Node.js/Express**, autenticação via **JWT**, persistência de dados com **MongoDB** e consumo de **API externa de clima**.
 
