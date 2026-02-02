@@ -9,41 +9,35 @@ const auth = require("./middleware/auth");
 
 const app = express();
 
-/**
- * Origens permitidas
- */
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "http://localhost:5175",
-  "https://project-skyra-frontend-p1y1.vercel.app",
-];
+
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // Postman/curl
+    if (!origin) return callback(null, true);
 
-    // localhost Vite
+    // Vite local
     if (/^http:\/\/localhost:517\d$/.test(origin)) return callback(null, true);
 
-    // project-skyra-frontend-p1y1.vercel.app
-    // project-skyra-frontend-p1y1-xxxx.vercel.app
+    // qualquer preview do seu projeto na Vercel
     if (/^https:\/\/project-skyra-frontend-p1y1(-[a-z0-9-]+)?\.vercel\.app$/.test(origin)) {
       return callback(null, true);
     }
 
-    return callback(new Error("Not allowed by CORS"));
+    // opcional: liberar também o domínio fixo
+    if (origin === "https://project-skyra-frontend-p1y1.vercel.app") {
+      return callback(null, true);
+    }
+
+    return callback(null, false);
   },
-  credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 204,
 };
 
 // CORS SEMPRE antes de qualquer rota
 app.use(cors(corsOptions));
 
-// Preflight (OPTIONS)
-app.options("*", cors(corsOptions));
 
 app.use(express.json());
 
