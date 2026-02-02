@@ -16,7 +16,7 @@ import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import * as auth from "../../utils/auth";
 import * as cardsApi from "../../utils/cardsApi";
 import About from "../About/About";
-const BASE_URL = "https://project-skyra-backend.onrender.com"
+const BASE_URL = "https://project-skyra-backend.onrender.com";
 
 function App() {
   const navigate = useNavigate();
@@ -299,28 +299,28 @@ function App() {
 
   // ===== handlers: auth =====
 
-const handleLogin = ({ email, password }) => {
-  if (!email || !password) {
-    return Promise.reject("Preencha e-mail e senha");
-  }
+  const handleLogin = ({ email, password }) => {
+    if (!email || !password) {
+      return Promise.reject("Preencha e-mail e senha");
+    }
 
-  return auth
-    .authorize({ email, password })
-    .then((data) => {
-      const token = data?.token || data?.jwt;
-      if (!token) {
-        return Promise.reject("Token não retornado");
-      }
+    return auth
+      .authorize({ email, password })
+      .then((data) => {
+        const token = data?.token || data?.jwt;
+        if (!token) {
+          return Promise.reject("Token não retornado");
+        }
 
-      localStorage.setItem("jwt", token);
-      return fetchMe(token);
-    })
-    .then((user) => {
-      setCurrentUser(user?.data || user);
-      setIsLoggedIn(true);
-      navigate("/", { replace: true });
-    });
-};
+        localStorage.setItem("jwt", token);
+        return fetchMe(token);
+      })
+      .then((user) => {
+        setCurrentUser(user?.data || user);
+        setIsLoggedIn(true);
+        navigate("/", { replace: true });
+      });
+  };
 
   const handleRegistration = (data) => {
     auth
@@ -374,7 +374,13 @@ const handleLogin = ({ email, password }) => {
               <Header userData={userData} onSelectCapital={selectCapital} />
 
               {loading && <Loader />}
-              {error && <p>{error}</p>}
+              {error && (
+                <p>
+                  {typeof error === "string"
+                    ? error
+                    : error?.message || "Erro inesperado"}
+                </p>
+              )}
 
               {!loading && weather && forecast && (
                 <Main
