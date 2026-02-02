@@ -1,7 +1,7 @@
 import "./Sidebar.css";
 import HomeIcon from "../../../../assets/home.svg?react";
 import AboutIcon from "../../../../assets/about.svg?react";
-import SettingsIcon from "../../../../assets/Settings.svg?react";
+import SettingsIcon from "../../../../assets/settings.svg?react";
 import ExitIcon from "../../../../assets/exit.svg?react";
 import { useNavigate, useLocation } from "react-router-dom";
 
