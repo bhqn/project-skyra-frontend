@@ -83,14 +83,22 @@ module.exports.createUser = (req, res) => {
     });
   }
 
-
-
   bcrypt
     .hash(password, 10)
     .then((hash) => {
       return User.create({ email, password: hash, name: username });
     })
-    .then((user) => res.status(201).send({ data: user }))
+    .then((user) =>
+      res.status(201).send({
+        data: {
+          _id: user._id,
+          email: user.email,
+          name: user.name,
+          about: user.about,
+          avatar: user.avatar,
+        },
+      }),
+    )
     .catch((err) => {
       console.log("CREATE USER ERROR:", err);
       //  Email duplicado
