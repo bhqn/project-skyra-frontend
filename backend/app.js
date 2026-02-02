@@ -21,10 +21,14 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // permite Postman, curl, server-to-server
-    if (!origin) return callback(null, true);
+    if (!origin) return callback(null, true); // Postman/curl
 
-    if (allowedOrigins.includes(origin)) {
+    // localhost Vite
+    if (/^http:\/\/localhost:517\d$/.test(origin)) return callback(null, true);
+
+    // project-skyra-frontend-p1y1.vercel.app
+    // project-skyra-frontend-p1y1-xxxx.vercel.app
+    if (/^https:\/\/project-skyra-frontend-p1y1(-[a-z0-9-]+)?\.vercel\.app$/.test(origin)) {
       return callback(null, true);
     }
 
