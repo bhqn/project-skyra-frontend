@@ -1,5 +1,5 @@
 
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "https://project-skyra-backend.onrender.com";
 
 const handleResponse = async (res) => {
   const data = await res.json().catch(() => ({}));

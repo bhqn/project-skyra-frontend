@@ -16,6 +16,7 @@ import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import * as auth from "../../utils/auth";
 import * as cardsApi from "../../utils/cardsApi";
 import About from "../About/About";
+const BASE_URL = "https://project-skyra-backend.onrender.com"
 
 function App() {
   const navigate = useNavigate();
@@ -187,7 +188,7 @@ function App() {
 
   // auth: valida token + carrega usuário
   const fetchMe = (token) =>
-    fetch("http://localhost:3000/users/me", {
+    fetch("BASE_URL/users/me", {
       headers: { Authorization: `Bearer ${token}` },
     }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
 
