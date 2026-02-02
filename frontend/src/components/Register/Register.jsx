@@ -46,7 +46,7 @@ const Register = ({ handleRegistration }) => {
         <h1 className="register__welcome">Inscreva-se</h1>
         <input
           className="register__input"
-          placeholder="Nome do "
+          placeholder="Nome"
           id="username"
           name="username"
           type="text"

@@ -1,5 +1,4 @@
-
-export const BASE_URL = "https://project-skyra-backend.onrender.com";
+import { BASE_URL } from "./config";
 
 const handleResponse = async (res) => {
   const data = await res.json().catch(() => ({}));
@@ -38,13 +37,24 @@ export const authorize = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password }),
   }).then(async (res) => {
-    const data = await res.json().catch(() => ({}));
+    const contentType = res.headers.get("content-type") || "";
+    const isJson = contentType.includes("application/json");
+
+    const data = isJson ? await res.json().catch(() => ({})) : null;
+    const text = !isJson ? await res.text().catch(() => "") : "";
 
     if (res.ok) return data;
 
-    return Promise.reject(data?.message || `Error: ${res.status}`);
+    // tenta usar message do backend, senão dá um erro legível
+    const msg =
+      data?.message ||
+      (text ? "Servidor retornou HTML (verifique rota /signin no deploy)" : "") ||
+      `Erro ${res.status}`;
+
+    return Promise.reject(msg);
   });
 };
+
 
 export const getUserInfo = (token) => {
   return fetch(`${BASE_URL}/users/me`, {

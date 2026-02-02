@@ -1,4 +1,4 @@
-const BASE_URL = "https://project-skyra-backend.onrender.com";
+import { BASE_URL } from "./config";
 
 function request(url, options) {
   return fetch(url, options).then((res) =>

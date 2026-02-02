@@ -25,7 +25,7 @@ function Cities({
   const canAdd = capital?.uf && !cities.some((c) => c.uf === capital.uf);
   return (
     <section className="cities__section">
-      <p className="cities__title">Outras Cidades</p>
+      <p className="cities__title">Favoritos</p>
       <div className="cities__carousel">
        {cities.map((city) => (
   <button
