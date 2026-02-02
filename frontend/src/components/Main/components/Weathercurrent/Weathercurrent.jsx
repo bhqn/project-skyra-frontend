@@ -1,4 +1,4 @@
-import "./WeatherCurrent.css";
+import "./Weathercurrent.css";
 import WeatherChart from "../Weathercurrent/components/WeatherChart.jsx";
 import {
   formatTime,
