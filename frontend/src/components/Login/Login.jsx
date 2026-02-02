@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import LoginImage from "../../assets/login-image.webp"
-import "./Login.css"
-const Login = ({handleLogin }) => {
-   const [loginError, setLoginError] = useState("");
+import LoginImage from "../../assets/login-image.webp";
+import "./Login.css";
+const Login = ({ handleLogin }) => {
+  const [loginError, setLoginError] = useState("");
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({
@@ -17,21 +17,19 @@ const Login = ({handleLogin }) => {
     }));
   };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  setLoginError("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoginError("");
 
-  handleLogin(data)
-    .catch((message) => {
+    handleLogin(data).catch((message) => {
       setLoginError(message);
     });
-};
+  };
 
-  
   return (
     <div className="login">
-        <img src={LoginImage} className="Login__img"></img>
-      <form className="login__form"  onSubmit={handleSubmit}>
+      <img src={LoginImage} className="Login__img"></img>
+      <form className="login__form" onSubmit={handleSubmit}>
         <h1 className="login__welcome">Entrar</h1>
         <input
           className="login__input"
@@ -42,9 +40,11 @@ const handleSubmit = (e) => {
           value={data.email}
           onChange={handleChange}
         />
-   {loginError && (
-  <span className="login__error">{loginError}</span>
-)}
+        {loginError && (
+          <span className="login__error">
+            {typeof loginError === "string" ? loginError : loginError.message}
+          </span>
+        )}
 
         <input
           className="login__input login__input-password"
@@ -53,12 +53,12 @@ const handleSubmit = (e) => {
           name="password"
           type="password"
           value={data.password}
-           onChange={handleChange}
+          onChange={handleChange}
         />
 
         <div className="login__button-container">
           <button type="submit" className="login__link">
-           Entrar
+            Entrar
           </button>
         </div>
 
