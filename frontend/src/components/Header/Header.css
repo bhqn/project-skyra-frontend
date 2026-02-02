@@ -11,13 +11,21 @@
 }
 
 .header__avatar {
-  height: 50px;
-  width: 50px;
+  height: 70px;
+  width: 70px;
   object-fit: cover;
-  margin-right: 20px;
-  
+
   flex: 0 0 auto;
 }
+.header__avatar-container {
+  width: 64px;        
+  height: 64px;
+  border-radius: 50%; 
+  overflow: hidden; 
+   margin-right: 20px;
+  
+}
+
 
 .header__container {
   width: 100%;
