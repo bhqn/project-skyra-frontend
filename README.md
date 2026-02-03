@@ -84,3 +84,6 @@ Este projeto foi desenvolvido como **trabalho final da formação da TripleTen**
 - O token JWT é gerado no login
 - Armazenado no `localStorage`
 - Enviado no header:
+
+
+ "## Pull Request de avaliação" 
